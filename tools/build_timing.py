@@ -3,7 +3,8 @@
     python3 tools/build_timing.py <scene> <start_sec> <end_sec>
 
 * cuts assets/audio/voiceover_full.mp3 [start, end] -> scenes/<scene>/audio.wav
-  (original speed, 30 ms fade-in, 200 ms fade-out placed in the pause after the last word)
+  (original speed, 30 ms fade-in, 200 ms fade-out placed in the pause after the last word;
+   if <end_sec> is past the end of the file, the rest is padded with silence)
 * word timestamps (from the ASR tokens in tools/voiceover_full_tokens.json), shifted to scene time
 * per-frame voice loudness envelope (lip-sync)
 Writes scenes/<scene>/timing.json and timing.js.
@@ -17,7 +18,7 @@ dur = round(end - start, 3)
 FPS = 30
 wav = f'scenes/{scene}/audio.wav'
 subprocess.run(['ffmpeg', '-loglevel', 'error', '-y', '-ss', str(start), '-i', 'assets/audio/voiceover_full.mp3',
-                '-t', str(dur), '-af', f'afade=t=in:st=0:d=0.03,afade=t=out:st={dur - 0.2}:d=0.2',
+                '-t', str(dur), '-af', f'apad=whole_dur={dur},afade=t=in:st=0:d=0.03,afade=t=out:st={dur - 0.2}:d=0.2',
                 '-c:a', 'pcm_s16le', wav], check=True)
 
 d = json.load(open('tools/voiceover_full_tokens.json'))

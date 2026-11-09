@@ -1,0 +1,7 @@
+[
+  {"file": "assets/sfx/ding.wav",        "at": 0.0,   "gain_db": -16, "note": "lobby chime as Sanya walks in"},
+  {"file": "assets/sfx/growl_small.wav", "at": 11.76, "gain_db": -7,  "note": "gurgle in the pause after 'Suddenly,'"},
+  {"file": "assets/sfx/growl_big.wav",   "at": 13.72, "gain_db": -1,  "note": "the big growl, right after 'loudly.'"},
+  {"file": "assets/sfx/blorp.wav",       "at": 18.35, "gain_db": -6,  "note": "tiny encore in the closing pause"},
+  {"file": "assets/sfx/ding.wav",        "at": 19.0,  "gain_db": -15, "note": "arrival chime with the iris-out"}
+]
