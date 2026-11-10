@@ -36,8 +36,8 @@
   const PILLOW = [735, 1190];
   const hipY = (feet, sc) => feet - (138 + 128 + 14) * sc;
   const BARS = [60, 210, 360, 510, 660, 810, 960];
-  const ALEX_LOOK = { skin: CH.SKIN.alex, outfit: 'prisoner', sleeve: '#f07a2a', pants: '#f07a2a', shoe: 'white' };
-  const GUARD_LOOK = { kind: 'guard', skin: CH.SKIN.guard, outfit: 'guardpro', sleeve: '#1f3152', pants: '#1a2438', shoe: 'black' };
+  const ALEX_LOOK = { skin: CH.SKIN.alex, outfit: 'prisoner', sleeve: '#f07a2a', pants: '#f07a2a', shoe: 'white', armW: 21, handSc: 0.8 };
+  const GUARD_LOOK = { kind: 'guard', skin: CH.SKIN.guard, outfit: 'guardpro', sleeve: '#1f3152', pants: '#1a2438', shoe: 'black', armW: 23, handSc: 0.85 };
 
   function defs() {
     return `<defs>
@@ -239,36 +239,41 @@
       p.armBehindL = true; p.armBehindR = true;
     } else if (t < 10.9) {
       // hanging, a bit limp
-      p.armL = [-10, 4 + 4 * Math.sin(t * 3)]; p.armR = [10, -4]; p.handL = 'fist'; p.handR = 'fist';
+      p.armL = [-9 + 2 * Math.sin(t * 2.1), 12 + 3 * Math.sin(t * 2.6)]; p.armR = [9 + 2 * Math.sin(t * 2.3 + 1), -12 - 3 * Math.sin(t * 2.8)]; p.handL = 'fist'; p.handR = 'fist';
     }
-    // ----- the plea
+    // ----- the plea (natural arms: elbows down/out, hands at chest height)
+    p.gripBars = false;
     if (t >= 10.9 && t < K.hug) {
+      const sx = standHip[0], sy = standHip[1];
+      const hangL = [sx - 62, sy - 6], hangR = [sx + 62, sy - 6];          // relaxed, slightly bent
       const grab = prog(t, 10.9, 11.12, 'outBack') * (1 - prog(t, 13.6, 13.9));
-      const rest = [[standHip[0] - 60, standHip[1] - 20], [standHip[0] + 60, standHip[1] - 20]];
-      const barL = [BARS[3] + 6, 1010], barR = [BARS[4] - 6, 1010];
-      let wl = [lerp(rest[0][0], barL[0], grab), lerp(rest[0][1], barL[1], grab)];
-      let wr = [lerp(rest[1][0], barR[0], grab), lerp(rest[1][1], barR[1], grab)];
+      const barL = [BARS[3] + 2, sy - 78], barR = [BARS[4] - 2, sy - 78];   // grip the bars at chest height
+      let wl = [lerp(hangL[0], barL[0], grab), lerp(hangL[1], barL[1], grab)];
+      let wr = [lerp(hangR[0], barR[0], grab), lerp(hangR[1], barR[1], grab)];
       p.handL = 'fist'; p.handR = 'fist';
+      p.gripBars = grab > 0.85;
       if (t > 13.75) {
-        // counting the free stuff on his hands
-        const g1 = prog(t, 13.95, 14.25, 'outBack'), g2 = prog(t, K.water - 0.1, K.water + 0.2, 'outBack'), g3 = prog(t, K.bed, K.bed + 0.3, 'outBack');
-        wr = [lerp(standHip[0] + 70, standHip[0] + 95, g1), lerp(standHip[1] - 40, standHip[1] - 230, g1)];
-        wl = [lerp(standHip[0] - 70, standHip[0] - 95, g2), lerp(standHip[1] - 40, standHip[1] - 220, g2)];
+        // counting the free stuff: one hand in front of the chest, the other relaxed
+        const g1 = prog(t, 13.95, 14.25, 'outBack') * (1 - prog(t, K.bed - 0.1, K.bed + 0.2));
+        const g2 = prog(t, K.water - 0.1, K.water + 0.2, 'outBack') * (1 - prog(t, K.bed - 0.1, K.bed + 0.2));
+        const g3 = prog(t, K.bed, K.bed + 0.3, 'outBack') * (1 - prog(t, K.everything - 0.15, K.everything + 0.1));
+        wr = [lerp(hangR[0], sx + 72, g1), lerp(hangR[1], sy - 92, g1)];
+        wl = [lerp(hangL[0], sx - 72, g2), lerp(hangL[1], sy - 88, g2)];
         p.handR = g1 > 0.5 ? 'point' : 'fist'; p.handL = g2 > 0.5 ? 'point' : 'fist';
-        p.handRotR = 180; p.handRotL = 180;
-        if (g3 > 0) {   // "a free bed here" — thumb back at the bed
-          wr = [lerp(wr[0], standHip[0] + 120, g3), lerp(wr[1], standHip[1] - 60, g3)];
-          p.handRotR = lerp(180, 120, g3);
+        p.handRotR = g1 > 0.5 ? 165 : 0; p.handRotL = g2 > 0.5 ? 195 : 0;
+        if (g3 > 0) {   // "a free bed here" — thumb over the shoulder at the bed
+          wr = [lerp(wr[0], sx + 95, g3), lerp(wr[1], sy - 112, g3)];
+          p.handR = 'point'; p.handRotR = lerp(165, 215, g3);
         }
         const big = prog(t, K.everything, K.everything + 0.3, 'outBack');
-        if (big > 0) {   // "Everything is FREE!" — arms flung wide
-          wl = [lerp(wl[0], standHip[0] - 165, big), lerp(wl[1], standHip[1] - 250, big)];
-          wr = [lerp(wr[0], standHip[0] + 165, big), lerp(wr[1], standHip[1] - 250, big)];
-          p.handL = 'open'; p.handR = 'open'; p.handRotL = 180; p.handRotR = 180; p.thumbL = 1; p.thumbR = -1;
+        if (big > 0) {   // "Everything is FREE!" — arms open, palms up
+          wl = [lerp(wl[0], sx - 118, big), lerp(wl[1], sy - 38, big)];
+          wr = [lerp(wr[0], sx + 118, big), lerp(wr[1], sy - 38, big)];
+          if (big > 0.4) { p.handL = 'open'; p.handR = 'open'; p.handRotL = -95; p.handRotR = 95; p.thumbL = 1; p.thumbR = -1; }
         }
       }
-      p.armL = CH.armIK(p, -1, wl[0], wl[1], 1);
-      p.armR = CH.armIK(p, 1, wr[0], wr[1], -1);
+      p.armL = CH.armIK(p, -1, wl[0], wl[1], -1);
+      p.armR = CH.armIK(p, 1, wr[0], wr[1], 1);
       p.headTilt = (t < 13.6 ? Math.sin(t * 2.2) * 7 : wob(t, 1.2, 1) * 4);
       if (t > K.FREE - 0.05 && t < K.alexEnd) { p.y -= Math.sin(prog(t, K.FREE - 0.05, K.FREE + 0.3, 'linear') * Math.PI) * 26; }
     }
@@ -281,16 +286,16 @@
       if (lift < 1) {
         const px = lerp(PILLOW[0], p.x, lift), py = lerp(PILLOW[1], p.y - 110 * p.sc, lift);
         pillow = { world: [px, py], s: 1 };
-        p.armL = CH.armIK(p, -1, lerp(p.x - 40, px - 50, reach), lerp(p.y, py, reach), 1);
-        p.armR = CH.armIK(p, 1, lerp(p.x + 40, px + 50, reach), lerp(p.y, py, reach), -1);
+        p.armL = CH.armIK(p, -1, lerp(p.x - 50, px - 55, reach), lerp(p.y - 10, py, reach), -1);
+        p.armR = CH.armIK(p, 1, lerp(p.x + 50, px + 55, reach), lerp(p.y - 10, py, reach), 1);
         p.handL = 'open'; p.handR = 'open'; p.handRotL = 180; p.handRotR = 180;
       } else {
         const sx = 1.45 - 0.12 * squeeze, sy = 1.55 + 0.12 * squeeze;
         p.chest = pillowSvg(0, -112, sx, sy, -8);
         // arms around it from below, hands squeezing its lower corners
         const cx = p.x, cy = p.y - 112 * p.sc;
-        p.armL = CH.armIK(p, -1, cx - 48 + 8 * squeeze, cy + 40, 1);
-        p.armR = CH.armIK(p, 1, cx + 50 - 8 * squeeze, cy + 34, -1);
+        p.armL = CH.armIK(p, -1, cx + 24 - 6 * squeeze, cy + 34, -1);
+        p.armR = CH.armIK(p, 1, cx - 18 + 6 * squeeze, cy + 18, 1);
         p.handL = 'fist'; p.handR = 'fist';
         p.headTilt = 12 + Math.sin(t * 3) * 2; p.lean = -2;
         p.sqX = 1 - 0.015 * squeeze; p.sqY = 1 + 0.015 * squeeze;
@@ -467,6 +472,7 @@
       if (pillow) o.push(pillowSvg(pillow.world[0], pillow.world[1], 1, 1, -6));
       o.push(tears(t, aHead), shockLines(t, aHead));
       o.push(bars());
+      if (ap.gripBars) o.push(CH.figure(Object.assign({}, ap, { _handsOnly: 'LR' })));
       o.push(`<ellipse cx="${f1(gp.x)}" cy="${GUARD.feet + 22}" rx="115" ry="16" fill="#000" opacity=".25" filter="url(#fBlurP)"/>`);
       o.push(CH.figure(gp));
       o.push('</g>');
