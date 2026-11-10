@@ -1,0 +1,4 @@
+[
+  {"file": "assets/sfx/clank.wav", "at": 35.95, "gain_db": -8,  "note": "cell doors unlocked (pause after 'NOOO')"},
+  {"file": "assets/sfx/slam.wav",  "at": 40.15, "gain_db": -2,  "note": "the prison door slams on 'shut'"}
+]

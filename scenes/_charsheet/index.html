@@ -3,14 +3,16 @@
 <script src="../../lib/anim.js"></script><script src="../../lib/characters.js"></script>
 <script>
 window.TIMING={fps:30,duration:1};
-const AL={skin:CH.SKIN.alex,outfit:'prisoner',sleeve:'#f07a2a',pants:'#f07a2a',shoe:'white'};
-const GU={kind:'guard',skin:CH.SKIN.guard,outfit:'guardpro',sleeve:'#1f3152',pants:'#1a2438',shoe:'black'};
+const AL={skin:CH.SKIN.alex,outfit:'prisoner',sleeve:'#f07a2a',pants:'#f07a2a',shoe:'white',armW:21,handSc:0.8};
+const BR={skin:CH.SKIN.bruno,outfit:'prisoner',patch:'A-13',sleeve:'#f07a2a',pants:'#f07a2a',shoe:'white',armW:21,handSc:0.8};
+const GU={kind:'guard',skin:CH.SKIN.guard,outfit:'guardpro',sleeve:'#1f3152',pants:'#1a2438',shoe:'black',armW:21,handSc:0.8};
 window.renderFrame=function(){
  document.getElementById('svg').innerHTML='<defs>'+CH.defs()+'</defs>'+
-  CH.figure(Object.assign({x:300,y:1350,sc:1.25,armL:[-20,10],armR:[20,-10],face:{turn:0.15,look:[0.3,0],brow:0.6,browTilt:0.9,mouth:'frown',pupil:1.3}},AL))+
-  CH.figure(Object.assign({x:790,y:1350,sc:1.3,armL:[-30,60],handL:'fist',itemL:'folder',armR:[15,-5],face:{turn:-0.3,look:[-0.6,0],mouth:'flat',brow:0.1,browTilt:-0.45}},GU))+
-  '<g transform="translate(290 430) scale(1.65)">'+CH.headOnly(Object.assign({},AL,{face:{turn:0,look:[0,-0.2],mouth:'open',open:0.75,eye:1.1,pupil:1.4,brow:0.7,browTilt:1,tears:1,time:0.3}}))+'</g>'+
-  '<g transform="translate(790 430) scale(1.65)">'+CH.headOnly(Object.assign({},GU,{face:{turn:0,look:[0,0],mouth:'open',open:0.5,brow:0.1,browTilt:-0.45}}))+'</g>';
+  CH.figure(Object.assign({x:270,y:1350,sc:0.85,armL:[-10,12],armR:[10,-12],face:{turn:0.15,look:[0.3,0],mouth:'smile'}},AL))+
+  CH.figure(Object.assign({x:560,y:1330,sc:0.92,armL:[-10,12],armR:[10,-12],face:{turn:-0.1,look:[-0.3,0],mouth:'open',open:0.6,brow:0.3}},BR))+
+  CH.figure(Object.assign({x:850,y:1300,sc:1.0,back:true,armL:[-10,12],armR:[10,-12]},GU))+
+  '<g transform="translate(300 450) scale(1.6)">'+CH.headOnly(Object.assign({},BR,{face:{turn:0,look:[0,0],mouth:'flat',brow:0.1,browTilt:-0.3}}))+'</g>'+
+  '<g transform="translate(780 450) scale(1.6)">'+CH.headOnly(Object.assign({},BR,{face:{turn:0,look:[0,0],mouth:'open',open:0.9,eye:1.2,pupil:0.6,brow:1,browTilt:0.6}}))+'</g>';
 };
 renderFrame(0);
 </script></body></html>

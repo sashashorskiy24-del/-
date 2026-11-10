@@ -6,6 +6,8 @@ growl_big   — long comic stomach growl ("grrrooouuwwl" with gurgles)
 growl_small — short gurgle
 blorp       — tiny bubbly 'blurp'
 ding        — soft elevator chime
+slam        — heavy steel prison door slamming shut (boom + metallic ring)
+clank       — cell-door lock clank
 """
 import numpy as np, wave, os
 
@@ -60,7 +62,28 @@ def ding():
     return x * np.minimum(1, t / 0.005)
 
 
+def slam():
+    dur = 2.2; t = np.arange(int(dur * SR)) / SR
+    rng = np.random.default_rng(5)
+    boom = np.sin(2 * np.pi * np.cumsum(np.interp(t, [0, 0.4], [95, 38])) / SR) * np.exp(-t * 4.5)
+    noise = lowpass(rng.standard_normal(len(t)), 900) * np.exp(-t * 18) * 3
+    ring = sum(a * np.sin(2 * np.pi * f * t) * np.exp(-t * d) for f, a, d in [(212, .35, 3.5), (347, .25, 4.5), (523, .18, 6), (811, .12, 8), (1290, .06, 10)])
+    x = 1.0 * boom + 0.5 * noise + 0.35 * ring
+    return x * np.minimum(1, t / 0.002)
+
+
+def clank():
+    dur = 0.6; t = np.arange(int(dur * SR)) / SR
+    x = np.zeros_like(t)
+    for st in (0.0, 0.12):
+        tt = np.clip(t - st, 0, None); on = t >= st
+        x += on * sum(a * np.sin(2 * np.pi * f * tt) * np.exp(-tt * d) for f, a, d in [(620, .5, 25), (1430, .3, 30), (2310, .2, 40)])
+    return x
+
+
 if __name__ == '__main__':
+    save('slam', slam())
+    save('clank', clank())
     save('growl_big', growl(1.05, [70, 95, 150, 175, 120, 85, 60, 55], seed=3, bubbles=10))
     save('growl_small', growl(0.32, [120, 160, 110], seed=7, bubbles=4, rough=1.3))
     save('blorp', growl(0.22, [180, 110, 70], seed=11, bubbles=3, rough=0.5))
