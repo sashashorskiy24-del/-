@@ -1,14 +1,16 @@
-<!doctype html><html><head><meta charset="utf-8"><style>html,body{margin:0;background:#cfd5d2}</style></head><body>
+<!doctype html><html><head><meta charset="utf-8"><style>html,body{margin:0;background:#7b858a}</style></head><body>
 <svg id="svg" width="1080" height="1920" viewBox="0 0 1080 1920"></svg>
 <script src="../../lib/anim.js"></script><script src="../../lib/characters.js"></script>
 <script>
 window.TIMING={fps:30,duration:1};
+const AL={skin:CH.SKIN.alex,outfit:'prisoner',sleeve:'#f07a2a',pants:'#f07a2a',shoe:'white'};
+const GU={kind:'guard',skin:CH.SKIN.guard,outfit:'guardpro',sleeve:'#1f3152',pants:'#1a2438',shoe:'black'};
 window.renderFrame=function(){
  document.getElementById('svg').innerHTML='<defs>'+CH.defs()+'</defs>'+
-  CH.figure({x:300,y:1300,sc:1.3,skin:CH.SKIN.alex,face:{turn:0.15,look:[0.3,0],brow:0.6,browTilt:0.8,mouth:'frown',pupil:1.3}})+
-  CH.figure({kind:'guard',skin:CH.SKIN.guard,x:800,y:1300,sc:1.3,armL:[-30,60],handL:'fist',itemL:'folder',face:{turn:-0.3,look:[-0.6,0],mouth:'open',open:0.6,brow:0.3}})+
-  '<g transform="translate(300 450) scale(1.6)">'+CH.headOnly({skin:CH.SKIN.alex,face:{turn:0,look:[0,0],mouth:'open',open:0.8,eye:1.2,pupil:1.4,brow:0.8,browTilt:1}})+'</g>'+
-  '<g transform="translate(800 450) scale(1.6)">'+CH.headOnly({kind:'guard',skin:CH.SKIN.guard,face:{turn:0,look:[0,0],mouth:'flat',brow:0.1,browTilt:-0.4}})+'</g>';
+  CH.figure(Object.assign({x:300,y:1350,sc:1.25,armL:[-20,10],armR:[20,-10],face:{turn:0.15,look:[0.3,0],brow:0.6,browTilt:0.9,mouth:'frown',pupil:1.3}},AL))+
+  CH.figure(Object.assign({x:790,y:1350,sc:1.3,armL:[-30,60],handL:'fist',itemL:'folder',armR:[15,-5],face:{turn:-0.3,look:[-0.6,0],mouth:'flat',brow:0.1,browTilt:-0.45}},GU))+
+  '<g transform="translate(290 430) scale(1.65)">'+CH.headOnly(Object.assign({},AL,{face:{turn:0,look:[0,-0.2],mouth:'open',open:0.75,eye:1.1,pupil:1.4,brow:0.7,browTilt:1,tears:1,time:0.3}}))+'</g>'+
+  '<g transform="translate(790 430) scale(1.65)">'+CH.headOnly(Object.assign({},GU,{face:{turn:0,look:[0,0],mouth:'open',open:0.5,brow:0.1,browTilt:-0.45}}))+'</g>';
 };
 renderFrame(0);
 </script></body></html>

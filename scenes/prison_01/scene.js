@@ -36,12 +36,14 @@
   const PILLOW = [735, 1190];
   const hipY = (feet, sc) => feet - (138 + 128 + 14) * sc;
   const BARS = [60, 210, 360, 510, 660, 810, 960];
+  const ALEX_LOOK = { skin: CH.SKIN.alex, outfit: 'prisoner', sleeve: '#f07a2a', pants: '#f07a2a', shoe: 'white' };
+  const GUARD_LOOK = { kind: 'guard', skin: CH.SKIN.guard, outfit: 'guardpro', sleeve: '#1f3152', pants: '#1a2438', shoe: 'black' };
 
   function defs() {
     return `<defs>
-      <linearGradient id="gCellWall" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#b7bec3"/><stop offset="1" stop-color="#9ea6ac"/></linearGradient>
-      <linearGradient id="gCorr" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#a9b8ae"/><stop offset="1" stop-color="#8e9e94"/></linearGradient>
-      <linearGradient id="gPFloor" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#7f8885"/><stop offset="1" stop-color="#5f6764"/></linearGradient>
+      <linearGradient id="gCellWall" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8d969c"/><stop offset="1" stop-color="#737c82"/></linearGradient>
+      <linearGradient id="gCorr" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#7f8c86"/><stop offset="1" stop-color="#66726c"/></linearGradient>
+      <linearGradient id="gPFloor" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#5f6866"/><stop offset="1" stop-color="#454c4b"/></linearGradient>
       <linearGradient id="gBar" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#2c3036"/><stop offset=".45" stop-color="#7d848d"/><stop offset="1" stop-color="#2c3036"/></linearGradient>
       <linearGradient id="gBarH" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2c3036"/><stop offset=".45" stop-color="#7d848d"/><stop offset="1" stop-color="#2c3036"/></linearGradient>
       <linearGradient id="gSkyP" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8ec5ec"/><stop offset="1" stop-color="#d9eefa"/></linearGradient>
@@ -65,12 +67,12 @@
   function corridor() {
     if (CORR) return CORR;
     const o = [];
-    o.push(`<rect x="-200" y="-300" width="1500" height="2600" fill="#7c8a82"/>`);
+    o.push(`<rect x="-200" y="-300" width="1500" height="2600" fill="#5f6b65"/>`);
     // ceiling, floor, walls
-    o.push(`<path d="M${NEAR.x0} ${NEAR.y0}L${NEAR.x1} ${NEAR.y0}L${FAR.x1} ${FAR.y0}L${FAR.x0} ${FAR.y0}Z" fill="#c9d0c9"/>`);
+    o.push(`<path d="M${NEAR.x0} ${NEAR.y0}L${NEAR.x1} ${NEAR.y0}L${FAR.x1} ${FAR.y0}L${FAR.x0} ${FAR.y0}Z" fill="#9aa39d"/>`);
     o.push(`<path d="M${NEAR.x0} ${NEAR.y1}L${NEAR.x1} ${NEAR.y1}L${FAR.x1} ${FAR.y1}L${FAR.x0} ${FAR.y1}Z" fill="url(#gPFloor)"/>`);
-    o.push(`<path d="M${NEAR.x0} ${NEAR.y0}L${FAR.x0} ${FAR.y0}L${FAR.x0} ${FAR.y1}L${NEAR.x0} ${NEAR.y1}Z" fill="#a3b2a8"/>`);
-    o.push(`<path d="M${NEAR.x1} ${NEAR.y0}L${FAR.x1} ${FAR.y0}L${FAR.x1} ${FAR.y1}L${NEAR.x1} ${NEAR.y1}Z" fill="#9aa99f"/>`);
+    o.push(`<path d="M${NEAR.x0} ${NEAR.y0}L${FAR.x0} ${FAR.y0}L${FAR.x0} ${FAR.y1}L${NEAR.x0} ${NEAR.y1}Z" fill="#7d8b83"/>`);
+    o.push(`<path d="M${NEAR.x1} ${NEAR.y0}L${FAR.x1} ${FAR.y0}L${FAR.x1} ${FAR.y1}L${NEAR.x1} ${NEAR.y1}Z" fill="#74827a"/>`);
     // lower-wall stripe
     for (const s of [-1, 1]) {
       const a = P(s, 1, 0.62), b = P(s, ZF, 0.62), c = P(s, ZF, 1), d = P(s, 1, 1);
@@ -118,7 +120,7 @@
     const k = gz(z);
     const feet = lerp(NEAR.y1, FAR.y1, k), sc = 1.55 / z;
     const ph = t * Math.PI * 2 * 1.5;
-    const p = { kind: 'guard', skin: CH.SKIN.guard, x: 540 + Math.sin(ph / 2) * 4, y: feet - (138 + 128 + 14) * sc - Math.abs(Math.sin(ph)) * 8 * sc, sc };
+    const p = { ...GUARD_LOOK, x: 540 + Math.sin(ph / 2) * 4, y: feet - (138 + 128 + 14) * sc - Math.abs(Math.sin(ph)) * 8 * sc, sc };
     p.legL = [-8, 0]; p.legR = [8, 0];
     p.legKL = null;
     const lift = Math.sin(ph);
@@ -140,10 +142,14 @@
     // cell interior
     o.push(`<rect x="60" y="400" width="900" height="${FLOOR_CELL - 400}" fill="url(#gCellWall)"/>`);
     for (let y = 430; y < FLOOR_CELL; y += 60) {
-      o.push(`<path d="M60 ${y}H960" stroke="#929aa1" stroke-width="3" opacity=".7"/>`);
-      for (let x = 60 + ((y / 60) % 2) * 60; x < 960; x += 120) o.push(`<path d="M${x} ${y}v60" stroke="#929aa1" stroke-width="3" opacity=".7"/>`);
+      o.push(`<path d="M60 ${y}H960" stroke="#5f686e" stroke-width="4" opacity=".8"/>`);
+      for (let x = 60 + ((y / 60) % 2) * 60; x < 960; x += 120) o.push(`<path d="M${x} ${y}v60" stroke="#5f686e" stroke-width="4" opacity=".8"/>`);
     }
-    o.push(`<rect x="60" y="${FLOOR_CELL}" width="900" height="${FLOOR_FRONT - FLOOR_CELL}" fill="#8b9396"/>`);
+    // grime: water stains and dark patches
+    for (const [x, y, rx, ry, op] of [[150, 980, 70, 120, .18], [470, 1300, 140, 40, .2], [880, 560, 60, 90, .15], [700, 900, 40, 70, .12], [330, 640, 50, 30, .12]])
+      o.push(`<ellipse cx="${x}" cy="${y}" rx="${rx}" ry="${ry}" fill="#2c3236" opacity="${op}" filter="url(#fBlurP)"/>`);
+    for (const x of [140, 420, 900]) o.push(`<path d="M${x} 400q-6 60 2 120t-4 140" fill="none" stroke="#4a5257" stroke-width="5" opacity=".35"/>`);
+    o.push(`<rect x="60" y="${FLOOR_CELL}" width="900" height="${FLOOR_FRONT - FLOOR_CELL}" fill="#646c6f"/>`);
     o.push(`<rect x="60" y="${FLOOR_CELL - 6}" width="900" height="10" fill="#6f777b"/>`);
     // small barred window + sunbeam
     o.push(`<rect x="250" y="470" width="160" height="120" rx="6" fill="url(#gSkyP)" stroke="#5f676d" stroke-width="8"/>`);
@@ -159,8 +165,13 @@
     o.push(`<path d="M810 1250h110v30a55 40 0 0 1-110 0Z" fill="#c9ced6" stroke="#5f676d" stroke-width="4"/><rect x="830" y="1300" width="70" height="${FLOOR_CELL - 1300}" fill="#b4bac1" stroke="#5f676d" stroke-width="4"/>`);
     // bed (metal cot)
     o.push(`<rect x="230" y="1290" width="580" height="24" rx="6" fill="#6f777b"/><rect x="240" y="1310" width="16" height="${FLOOR_CELL - 1310}" fill="#5f676d"/><rect x="784" y="1310" width="16" height="${FLOOR_CELL - 1310}" fill="#5f676d"/>`);
-    o.push(`<rect x="232" y="1198" width="576" height="96" rx="16" fill="#ebe7dc" stroke="#9a978c" stroke-width="5"/>`);
-    for (let x = 262; x < 800; x += 40) o.push(`<rect x="${x}" y="1206" width="14" height="80" fill="#cdd7e0" opacity=".8"/>`);
+    o.push(`<rect x="232" y="1198" width="576" height="96" rx="16" fill="#cfcabd" stroke="#4d4b45" stroke-width="5"/>`);
+    for (let x = 262; x < 800; x += 40) o.push(`<rect x="${x}" y="1206" width="14" height="80" fill="#9fb0bf" opacity=".6"/>`);
+    // upper bunk + posts (two-tier metal bunk bed)
+    o.push(`<rect x="228" y="760" width="18" height="${FLOOR_CELL - 760}" fill="#4f575d" stroke="#2c3236" stroke-width="3"/><rect x="796" y="760" width="18" height="${FLOOR_CELL - 760}" fill="#4f575d" stroke="#2c3236" stroke-width="3"/>`);
+    o.push(`<rect x="232" y="870" width="576" height="70" rx="12" fill="#5d6b78" stroke="#2c3236" stroke-width="5"/><rect x="226" y="936" width="590" height="22" rx="5" fill="#4f575d" stroke="#2c3236" stroke-width="4"/>`);
+    o.push(`<path d="M260 870q120-26 260 0" fill="none" stroke="#728292" stroke-width="8" stroke-linecap="round"/><rect x="226" y="780" width="590" height="14" rx="5" fill="#4f575d" stroke="#2c3236" stroke-width="3"/>`);
+    o.push(`<rect x="232" y="958" width="576" height="40" fill="#000" opacity=".2" filter="url(#fBlurP)"/>`);
     // folded grey blanket at the foot end
     o.push(`<rect x="240" y="1176" width="140" height="44" rx="12" fill="#7f8a99" stroke="#4e5763" stroke-width="5"/><path d="M252 1196h116" stroke="#9aa4b2" stroke-width="5"/>`);
     // corridor floor in front of the bars
@@ -198,7 +209,7 @@
     let hx = lerp(lieHip[0], sitHip[0], sit), hy = lerp(lieHip[1], sitHip[1], sit);
     hx = lerp(hx, standHipBed[0], stand); hy = lerp(hy, standHipBed[1], stand);
     hx = lerp(hx, standHip[0], step); hy = lerp(hy, standHip[1], step);
-    const p = { x: hx, y: hy, sc: ALEX.sc, rot: lerp(90, 0, sit), skin: CH.SKIN.alex };
+    const p = Object.assign({ x: hx, y: hy, sc: ALEX.sc, rot: lerp(90, 0, sit) }, ALEX_LOOK);
     // legs: straight & crossed (lying) -> seated -> standing
     const tap = t < 8.6 ? Math.max(0, Math.sin(t * 7)) * 14 : 0;
     const seatL = [-35, 35], seatR = [35, -35];
@@ -304,6 +315,9 @@
       if (t >= K.everything) { f.eye = 1.35; f.pupil = 0.9; f.brow = 1.0; f.browTilt = 0.4; f.look = [0.5, -0.2]; }
     }
     if (t >= K.hug - 0.1) { f.sleep = t > K.hug + 0.55; f.mouth = 'frown'; f.brow = 0.6; f.browTilt = 1; f.turn = 0.15; f.look = [0.3, 0.3]; f.pupil = 1.3; }
+    f.time = t;
+    f.tears = Math.max(prog(t, K.please, K.please + 0.8) * (1 - prog(t, 13.7, 14.0)) * 0.7, prog(t, K.hug + 0.3, K.hug + 1.0));
+    if (t >= K.everything && t < K.hug) f.tears = 0.35;
     // lip-sync: only while Alex himself speaks
     const s = LIPSYNC.talk(T, t, ALEX_LINES);
     if (s && s.mouth) { f.mouth = s.mouth; f.open = s.open; }
@@ -318,7 +332,7 @@
     const amp = walking ? Math.sin(Math.min(1, wk * 5, (1 - wk) * 5) * Math.PI / 2) : 0;
     const ph = (t - CUT) * Math.PI * 2 * 1.5;
     const x = lerp(1600, GUARD.x, E.sine(wk));
-    const p = { kind: 'guard', skin: CH.SKIN.guard, x, y: hipY(GUARD.feet, GUARD.sc) - Math.abs(Math.sin(ph)) * 10 * amp, sc: GUARD.sc };
+    const p = Object.assign({ x, y: hipY(GUARD.feet, GUARD.sc) - Math.abs(Math.sin(ph)) * 10 * amp, sc: GUARD.sc }, GUARD_LOOK);
     p.legL = [-8 + 22 * Math.sin(ph) * amp, Math.max(0, -Math.sin(ph)) * 20 * amp];
     p.legR = [8 - 22 * Math.sin(ph) * amp, -Math.max(0, Math.sin(ph)) * 20 * amp];
     p.lean = -3 * amp;
@@ -340,7 +354,8 @@
     p.handR = cheer > 0.5 ? 'open' : thumb > 0.5 ? 'point' : 'fist'; p.handRotR = 180; p.thumbR = -1;
     if (thumb > 0.5) p.handRotR = 240;
 
-    const f = { turn: -0.45, look: [-0.85, 0.1], mouth: 'smile', open: 0, brow: 0.2, browTilt: 0, eye: 1 };
+    const f = { turn: -0.45, look: [-0.85, 0.1], mouth: 'flat', open: 0, brow: 0.05, browTilt: -0.35, eye: 1 };
+    if (t > K.alex - 0.3 && t < 8.6) { f.mouth = 'smile'; f.browTilt = 0; f.brow = 0.3; }
     f.blink = blink(t, [5.4, 9.9, 12.0, 16.4, 20.2]);
     if (reading > 0.5) f.look = [-0.6, 0.8];
     // watching Alex get up
@@ -355,7 +370,7 @@
     if (t > K.hug + 0.4) { f.eye = 1.05; f.pupil = 0.8; f.lid = 0.3; f.mouth = 'flat'; f.brow = 0.5; f.browTilt = -0.4; f.look = [-0.8, 0.2]; }
     const s = LIPSYNC.talk(T, t, GUARD_LINES);
     if (s && s.mouth) { f.mouth = s.mouth; f.open = s.open; }
-    if (s) { f.brow = 0.45; }
+    if (s) { f.brow = 0.45; f.browTilt = 0; }
     p.face = f;
     return p;
   }
@@ -456,7 +471,8 @@
       o.push(CH.figure(gp));
       o.push('</g>');
       o.push(freeBurst(t, aHead, cam));
-      o.push(`<defs><radialGradient id="gVigP" cx=".5" cy=".5" r=".75"><stop offset=".6" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#0f1612" stop-opacity=".38"/></radialGradient></defs><rect width="1080" height="1920" fill="url(#gVigP)"/>`);
+      o.push(`<rect width="1080" height="1920" fill="#1d3340" opacity=".12" style="mix-blend-mode:multiply"/>`);
+      o.push(`<defs><radialGradient id="gVigP" cx=".5" cy=".45" r=".75"><stop offset=".5" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#05080a" stop-opacity=".55"/></radialGradient></defs><rect width="1080" height="1920" fill="url(#gVigP)"/>`);
       svg.innerHTML = o.join('');
       subsEl.innerHTML = subs(t);
       return;
