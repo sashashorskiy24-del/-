@@ -37,7 +37,7 @@
   const hipY = (feet, sc) => feet - (138 + 128 + 14) * sc;
   const BARS = [60, 210, 360, 510, 660, 810, 960];
   const ALEX_LOOK = { skin: CH.SKIN.alex, outfit: 'prisoner', sleeve: '#f07a2a', pants: '#f07a2a', shoe: 'white', armW: 21, handSc: 0.8 };
-  const GUARD_LOOK = { kind: 'guard', skin: CH.SKIN.guard, outfit: 'guardpro', sleeve: '#1f3152', pants: '#1a2438', shoe: 'black', armW: 23, handSc: 0.85 };
+  const GUARD_LOOK = { kind: 'guard', skin: CH.SKIN.guard, outfit: 'guardpro', sleeve: '#1f3152', pants: '#1a2438', shoe: 'black', armW: 21, handSc: 0.8 };   // same arms & hands as Alex
 
   function defs() {
     return `<defs>
