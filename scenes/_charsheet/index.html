@@ -1,12 +1,14 @@
-<!doctype html><html><head><meta charset="utf-8"><style>html,body{margin:0;background:#fff}</style></head><body>
+<!doctype html><html><head><meta charset="utf-8"><style>html,body{margin:0;background:#cfd5d2}</style></head><body>
 <svg id="svg" width="1080" height="1920" viewBox="0 0 1080 1920"></svg>
 <script src="../../lib/anim.js"></script><script src="../../lib/characters.js"></script>
 <script>
 window.TIMING={fps:30,duration:1};
 window.renderFrame=function(){
  document.getElementById('svg').innerHTML='<defs>'+CH.defs()+'</defs>'+
-  CH.figure({x:300,y:1300,sc:1.3})+
-  CH.figure({kind:'mom',x:800,y:1300,sc:1.3,armR:[20,150],handR:'fist',itemR:'spatula',armL:[-30,-20],handL:'open',face:{turn:-0.3,look:[-0.5,0],mouth:'open',open:0.6}});
+  CH.figure({x:300,y:1300,sc:1.3,skin:CH.SKIN.alex,face:{turn:0.15,look:[0.3,0],brow:0.6,browTilt:0.8,mouth:'frown',pupil:1.3}})+
+  CH.figure({kind:'guard',skin:CH.SKIN.guard,x:800,y:1300,sc:1.3,armL:[-30,60],handL:'fist',itemL:'folder',face:{turn:-0.3,look:[-0.6,0],mouth:'open',open:0.6,brow:0.3}})+
+  '<g transform="translate(300 450) scale(1.6)">'+CH.headOnly({skin:CH.SKIN.alex,face:{turn:0,look:[0,0],mouth:'open',open:0.8,eye:1.2,pupil:1.4,brow:0.8,browTilt:1}})+'</g>'+
+  '<g transform="translate(800 450) scale(1.6)">'+CH.headOnly({kind:'guard',skin:CH.SKIN.guard,face:{turn:0,look:[0,0],mouth:'flat',brow:0.1,browTilt:-0.4}})+'</g>';
 };
 renderFrame(0);
 </script></body></html>

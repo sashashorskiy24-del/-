@@ -6,6 +6,7 @@
 <style>
   @font-face { font-family: Fredoka; src: url(../../assets/fonts/Fredoka-Bold.ttf); font-weight: 700; }
   @font-face { font-family: Fredoka; src: url(../../assets/fonts/Fredoka-SemiBold.ttf); font-weight: 600; }
+  @font-face { font-family: Montserrat; src: url(../../assets/fonts/Montserrat-Black.ttf); font-weight: 900; }
   html, body { margin: 0; background: #111; }
   #stage { position: relative; width: 1080px; height: 1920px; overflow: hidden; background: #000; transform-origin: 0 0; }
   #svg { position: absolute; inset: 0; }
@@ -31,6 +32,9 @@
   .phrase.bored { padding: 18px 34px 26px; border-radius: 48px; background: rgba(40, 48, 66, .6); }
   .phrase.bored .w { color: #d5dcea; }
   .phrase.bored .w.on { color: #ffd84a; }
+  #subs.words { top: 1080px; }
+  .word { display: inline-block; font-family: Montserrat; font-weight: 900; font-size: 118px; letter-spacing: 1px; color: #fff;
+          -webkit-text-stroke: 22px #0d0d0d; paint-order: stroke fill; text-shadow: 0 10px 0 rgba(0,0,0,.35); transform-origin: 50% 60%; }
   .phrase.guard .w.on { color: #8fc4ff; }
   .phrase.alex .w.on { color: #ffd84a; }
   .phrase.sanya { font-size: 80px; }
@@ -41,7 +45,7 @@
 <body>
 <div id="stage">
   <svg id="svg" width="1080" height="1920" viewBox="0 0 1080 1920" xmlns="http://www.w3.org/2000/svg"></svg>
-  <div id="subs"></div>
+  <div id="subs" class="words"></div>
 </div>
 <audio id="vo" src="audio.wav" preload="auto"></audio>
 <script src="../../lib/anim.js"></script>

@@ -118,7 +118,7 @@
     const k = gz(z);
     const feet = lerp(NEAR.y1, FAR.y1, k), sc = 1.55 / z;
     const ph = t * Math.PI * 2 * 1.5;
-    const p = { kind: 'guard', x: 540 + Math.sin(ph / 2) * 4, y: feet - (138 + 128 + 14) * sc - Math.abs(Math.sin(ph)) * 8 * sc, sc };
+    const p = { kind: 'guard', skin: CH.SKIN.guard, x: 540 + Math.sin(ph / 2) * 4, y: feet - (138 + 128 + 14) * sc - Math.abs(Math.sin(ph)) * 8 * sc, sc };
     p.legL = [-8, 0]; p.legR = [8, 0];
     p.legKL = null;
     const lift = Math.sin(ph);
@@ -198,7 +198,7 @@
     let hx = lerp(lieHip[0], sitHip[0], sit), hy = lerp(lieHip[1], sitHip[1], sit);
     hx = lerp(hx, standHipBed[0], stand); hy = lerp(hy, standHipBed[1], stand);
     hx = lerp(hx, standHip[0], step); hy = lerp(hy, standHip[1], step);
-    const p = { x: hx, y: hy, sc: ALEX.sc, rot: lerp(90, 0, sit) };
+    const p = { x: hx, y: hy, sc: ALEX.sc, rot: lerp(90, 0, sit), skin: CH.SKIN.alex };
     // legs: straight & crossed (lying) -> seated -> standing
     const tap = t < 8.6 ? Math.max(0, Math.sin(t * 7)) * 14 : 0;
     const seatL = [-35, 35], seatR = [35, -35];
@@ -225,7 +225,7 @@
       p.armL = CH.armIK(p, -1, head[0] + 30, head[1] - 62, 1);
       p.armR = CH.armIK(p, 1, head[0] + 70, head[1] - 10, 1);
       p.handL = 'fist'; p.handR = 'fist';
-      p.armBehindL = true;
+      p.armBehindL = true; p.armBehindR = true;
     } else if (t < 10.9) {
       // hanging, a bit limp
       p.armL = [-10, 4 + 4 * Math.sin(t * 3)]; p.armR = [10, -4]; p.handL = 'fist'; p.handR = 'fist';
@@ -274,12 +274,12 @@
         p.armR = CH.armIK(p, 1, lerp(p.x + 40, px + 50, reach), lerp(p.y, py, reach), -1);
         p.handL = 'open'; p.handR = 'open'; p.handRotL = 180; p.handRotR = 180;
       } else {
-        const sx = 1.25 - 0.1 * squeeze, sy = 1.3 + 0.1 * squeeze;
-        p.chest = pillowSvg(0, -95, sx, sy, -6);
-        // arms wrapped around it, hands squeezing its sides
-        const cx = p.x, cy = p.y - 95 * p.sc;
-        p.armL = CH.armIK(p, -1, cx - 58 + 8 * squeeze, cy + 18, 1);
-        p.armR = CH.armIK(p, 1, cx + 58 - 8 * squeeze, cy + 4, -1);
+        const sx = 1.45 - 0.12 * squeeze, sy = 1.55 + 0.12 * squeeze;
+        p.chest = pillowSvg(0, -112, sx, sy, -8);
+        // arms around it from below, hands squeezing its lower corners
+        const cx = p.x, cy = p.y - 112 * p.sc;
+        p.armL = CH.armIK(p, -1, cx - 48 + 8 * squeeze, cy + 40, 1);
+        p.armR = CH.armIK(p, 1, cx + 50 - 8 * squeeze, cy + 34, -1);
         p.handL = 'fist'; p.handR = 'fist';
         p.headTilt = 12 + Math.sin(t * 3) * 2; p.lean = -2;
         p.sqX = 1 - 0.015 * squeeze; p.sqY = 1 + 0.015 * squeeze;
@@ -318,7 +318,7 @@
     const amp = walking ? Math.sin(Math.min(1, wk * 5, (1 - wk) * 5) * Math.PI / 2) : 0;
     const ph = (t - CUT) * Math.PI * 2 * 1.5;
     const x = lerp(1600, GUARD.x, E.sine(wk));
-    const p = { kind: 'guard', x, y: hipY(GUARD.feet, GUARD.sc) - Math.abs(Math.sin(ph)) * 10 * amp, sc: GUARD.sc };
+    const p = { kind: 'guard', skin: CH.SKIN.guard, x, y: hipY(GUARD.feet, GUARD.sc) - Math.abs(Math.sin(ph)) * 10 * amp, sc: GUARD.sc };
     p.legL = [-8 + 22 * Math.sin(ph) * amp, Math.max(0, -Math.sin(ph)) * 20 * amp];
     p.legR = [8 - 22 * Math.sin(ph) * amp, -Math.max(0, Math.sin(ph)) * 20 * amp];
     p.lean = -3 * amp;
@@ -380,7 +380,7 @@
   function freeBurst(t, head, cam) {
     // emphasis on "FREE!"
     const k = prog(t, K.FREE, K.FREE + 0.2, 'out'), out = 1 - prog(t, K.alexEnd, K.alexEnd + 0.3, 'linear');
-    if (t < K.FREE || out <= 0) return '';
+    if (t < K.FREE || t > 18.44 || out <= 0) return '';
     const hs = [540 + (head[0] - cam.cx) * cam.z, 960 + (head[1] - cam.cy) * cam.z];
     let o = '';
     for (let i = 0; i < 28; i++) {
@@ -399,29 +399,29 @@
     const c = kf(t, [
       [CUT, [700, 1170, 0.78]],
       [3.6, [760, 1150, 0.84], 'sine'],
-      [4.2, [850, 1130, 1.0]],
-      [4.7, [960, 1100, 1.2]],
-      [6.0, [975, 1090, 1.28], 'sine'],
-      [6.02, [735, 1150, 1.85], 'step'],
-      [6.95, [735, 1150, 1.95], 'sine'],
-      [6.97, [1060, 1065, 1.5], 'step'],
-      [8.13, [1060, 1060, 1.58], 'sine'],
-      [8.15, [735, 1150, 1.85], 'step'],
-      [8.6, [735, 1150, 1.9], 'sine'],
-      [9.2, [700, 1150, 1.02]],
-      [10.9, [680, 1130, 1.0], 'sine'],
-      [11.12, [585, 1010, 1.72], 'outBack'],
-      [13.55, [585, 1005, 1.9], 'sine'],
-      [13.57, [1075, 1065, 1.6], 'step'],
-      [13.9, [1075, 1060, 1.62], 'sine'],
-      [13.92, [820, 1110, 1.0], 'step'],
-      [17.2, [810, 1100, 1.05], 'sine'],
-      [17.45, [590, 1000, 1.85], 'outBack'],
-      [18.44, [590, 1000, 1.9], 'sine'],
-      [18.46, [1075, 1065, 1.65], 'step'],
-      [18.85, [1075, 1062, 1.68], 'sine'],
-      [18.87, [650, 1080, 1.4], 'step'],
-      [T.duration, [610, 1050, 1.62], 'sine'],
+      [4.12, [760, 1150, 0.84], 'sine'],
+      [4.14, [1070, 1170, 2.3], 'step'],            // guard close-up: "Alex, congratulations…"
+      [6.04, [1065, 1160, 2.45], 'sine'],
+      [6.06, [745, 1185, 2.7], 'step'],             // Alex (lying) close-up: "…you're free"
+      [6.95, [745, 1182, 2.85], 'sine'],
+      [6.97, [1070, 1150, 2.5], 'step'],            // guard: "You can go home today"
+      [8.13, [1068, 1145, 2.65], 'sine'],
+      [8.15, [745, 1185, 2.8], 'step'],             // Alex's face falls
+      [8.62, [745, 1185, 2.9], 'sine'],
+      [8.64, [690, 1160, 1.05], 'step'],            // "Alex slowly got out of bed" — wide
+      [10.9, [660, 1130, 1.1], 'sine'],
+      [10.92, [585, 1060, 2.5], 'step'],            // Alex at the bars: "No… please…"
+      [13.55, [585, 1055, 2.75], 'sine'],
+      [13.57, [1070, 1150, 2.6], 'step'],           // guard reaction
+      [13.9, [1070, 1148, 2.65], 'sine'],
+      [13.92, [590, 1110, 1.75], 'step'],           // counting the free stuff
+      [17.25, [590, 1100, 1.85], 'sine'],
+      [17.27, [588, 1040, 2.2], 'step'],            // "Everything is FREE!"
+      [18.44, [588, 1035, 2.35], 'sine'],
+      [18.46, [1070, 1150, 2.65], 'step'],          // guard: speechless
+      [18.85, [1070, 1148, 2.7], 'sine'],
+      [18.87, [600, 1150, 2.1], 'step'],            // hugging the pillow
+      [T.duration, [595, 1165, 2.35], 'sine'],
     ]);
     const shake = t > K.FREE ? 12 * Math.exp(-(t - K.FREE) * 6) : 0;
     const sh2 = t > K.no && t < K.no + 0.6 ? 6 * Math.exp(-(t - K.no) * 8) : 0;
@@ -429,16 +429,7 @@
   }
 
   // ---------------- subtitles ----------------
-  const subs = SUBS.makeSubs(T, [
-    { w: [0, 12] },
-    { w: [13, 16], cls: 'guard', text: { 13: '“Alex,', 16: 'free!' } },
-    { w: [17, 21], cls: 'guard', text: { 21: 'today!”' } },
-    { w: [22, 27] },
-    { w: [28, 33], cls: 'alex', text: { 28: '“No…', 29: 'please,', 33: 'leave!' } },
-    { w: [34, 44], cls: 'alex', text: { 44: 'here!' } },
-    { w: [45, 47], cls: 'alex', text: { 47: 'FREE!”' } },
-    { w: [48, 52] },
-  ]);
+  const subs = SUBS.makeWordSubs(T);
 
   // ---------------- frame ----------------
   const svg = document.getElementById('svg');
