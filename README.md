@@ -16,6 +16,7 @@
 - `scenes/prison_02/` — «Alex…», сцена 2: спор с охранником (озвучка 20.9–41.45 с, без субтитров)
 - `scenes/prison_03/` — «Alex…», сцена 3 (финал): сосед из A-13, «NOOO», выдворение и захлопнутая дверь (озвучка 41.45–82.2 с + 1.25 с паузы); `sfx.json` — лязг замков и удар двери
 - `scenes/airplane_01/` — «Alex’s First Flight», сцена 1 (звук `assets/audio/airplane_voiceover_full.wav` из записи экрана ElevenLabs, 1.45–17.85 с + 0.8 с)
+- `scenes/airplane_02/` — «Alex’s First Flight», сцена 2: вопрос про туалет (17.85–32.45 с + 2.4 с на facepalm)
 - `scenes/scene_01/` — сцена 1: `scene.js` (комната, тайминг, камера, эффекты, субтитры), `index.html`, `audio.wav`, `timing.json` / `timing.js`
 - `assets/` — исходная озвучка, референс персонажа, шрифты
 - `tools/build_timing.py <сцена> <начало> <конец>` — вырезает фрагмент озвучки, считает тайминги слов и огибающую громкости для синхронизации губ
@@ -38,6 +39,8 @@ python3 tools/build_timing.py prison_03 41.45 83.45 assets/audio/prison_voiceove
 node tools/render.js prison_03 --out output/scene_03_prison_final.mp4
 python3 tools/build_timing.py airplane_01 1.45 17.85 assets/audio/airplane_voiceover_full.wav tools/airplane_voiceover_full_tokens.json 0.8
 node tools/render.js airplane_01 --out output/scene_01_airplane.mp4
+python3 tools/build_timing.py airplane_02 17.85 32.45 assets/audio/airplane_voiceover_full.wav tools/airplane_voiceover_full_tokens.json 2.4
+node tools/render.js airplane_02 --out output/scene_02_airplane.mp4
 node tools/render.js scene_01 --stills 6.5,9.7,16.6  # отдельные кадры для проверки
 ```
 Чтобы посмотреть сцену в браузере, откройте `scenes/scene_01/index.html` и кликните по экрану: включится звук.
