@@ -1,6 +1,6 @@
 """Cuts a scene's voice-over fragment and builds its timing data.
 
-    python3 tools/build_timing.py <scene> <start_sec> <end_sec> [<full_voiceover.mp3> <asr_tokens.json>]
+    python3 tools/build_timing.py <scene> <start_sec> <end_sec> [<full_voiceover> <asr_tokens.json> [<pad_sec>]]
 
 * cuts assets/audio/voiceover_full.mp3 [start, end] -> scenes/<scene>/audio.wav
   (original speed, 30 ms fade-in, 200 ms fade-out placed in the pause after the last word;
@@ -16,11 +16,14 @@ import json, sys, wave, subprocess, numpy as np
 scene, start, end = sys.argv[1], float(sys.argv[2]), float(sys.argv[3])
 SRC = sys.argv[4] if len(sys.argv) > 4 else 'assets/audio/voiceover_full.mp3'
 TOK = sys.argv[5] if len(sys.argv) > 5 else 'tools/voiceover_full_tokens.json'
-dur = round(end - start, 3)
+PAD = float(sys.argv[6]) if len(sys.argv) > 6 else 0.0      # silence appended after the cut (end beat)
+cut = round(end - start, 3)
+dur = round(cut + PAD, 3)
 FPS = 30
 wav = f'scenes/{scene}/audio.wav'
+# fade-out ends exactly at the cut; anything after it (pad / end of file) is silence
 subprocess.run(['ffmpeg', '-loglevel', 'error', '-y', '-ss', str(start), '-i', SRC,
-                '-t', str(dur), '-af', f'apad=whole_dur={dur},afade=t=in:st=0:d=0.03,afade=t=out:st={dur - 0.2}:d=0.2',
+                '-t', str(dur), '-af', f'apad=whole_dur={dur},afade=t=in:st=0:d=0.03,afade=t=out:st={cut - 0.2}:d=0.2',
                 '-c:a', 'pcm_s16le', wav], check=True)
 
 d = json.load(open(TOK))

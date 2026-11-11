@@ -1,18 +1,13 @@
-<!doctype html><html><head><meta charset="utf-8"><style>html,body{margin:0;background:#7b858a}</style></head><body>
+<!doctype html><html><head><meta charset="utf-8"><style>html,body{margin:0;background:#e9e6e0}</style></head><body>
 <svg id="svg" width="1080" height="1920" viewBox="0 0 1080 1920"></svg>
 <script src="../../lib/anim.js"></script><script src="../../lib/characters.js"></script>
 <script>
 window.TIMING={fps:30,duration:1};
-const AL={skin:CH.SKIN.alex,outfit:'prisoner',sleeve:'#f07a2a',pants:'#f07a2a',shoe:'white',armW:21,handSc:0.8};
-const BR={skin:CH.SKIN.bruno,outfit:'prisoner',patch:'A-13',sleeve:'#f07a2a',pants:'#f07a2a',shoe:'white',armW:21,handSc:0.8};
-const GU={kind:'guard',skin:CH.SKIN.guard,outfit:'guardpro',sleeve:'#1f3152',pants:'#1a2438',shoe:'black',armW:21,handSc:0.8};
 window.renderFrame=function(){
  document.getElementById('svg').innerHTML='<defs>'+CH.defs()+'</defs>'+
-  CH.figure(Object.assign({x:270,y:1350,sc:0.85,armL:[-10,12],armR:[10,-12],face:{turn:0.15,look:[0.3,0],mouth:'smile'}},AL))+
-  CH.figure(Object.assign({x:560,y:1330,sc:0.92,armL:[-10,12],armR:[10,-12],face:{turn:-0.1,look:[-0.3,0],mouth:'open',open:0.6,brow:0.3}},BR))+
-  CH.figure(Object.assign({x:850,y:1300,sc:1.0,back:true,armL:[-10,12],armR:[10,-12]},GU))+
-  '<g transform="translate(300 450) scale(1.6)">'+CH.headOnly(Object.assign({},BR,{face:{turn:0,look:[0,0],mouth:'flat',brow:0.1,browTilt:-0.3}}))+'</g>'+
-  '<g transform="translate(780 450) scale(1.6)">'+CH.headOnly(Object.assign({},BR,{face:{turn:0,look:[0,0],mouth:'open',open:0.9,eye:1.2,pupil:0.6,brow:1,browTilt:0.6}}))+'</g>';
+  CH.figure({x:300,y:1350,sc:1.1})+
+  CH.figure({kind:'stewardess',x:780,y:1330,sc:1.15,armL:[-12,14],armR:[12,-14],handL:'fist',handR:'fist',face:{turn:-0.3,look:[-0.6,0],mouth:'smile',brow:0.3}})+
+  '<g transform="translate(780 450) scale(1.7)">'+CH.headOnly({kind:'stewardess',face:{turn:-0.2,look:[-0.4,0],mouth:'open',open:0.6,brow:0.4}})+'</g>';
 };
 renderFrame(0);
 </script></body></html>

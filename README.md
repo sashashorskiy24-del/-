@@ -1,6 +1,6 @@
 # History of Sanya — 2D-анимация
 
-Мультфильмы: «What If You Could Read Minds?» (`scene_01`, `scene_cafe`, `scene_elevator`) и «Alex Doesn’t Want to Leave Prison» (`prison_01`, …).
+Мультфильмы: «What If You Could Read Minds?» (`scene_01`, `scene_cafe`, `scene_elevator`), «Alex Doesn’t Want to Leave Prison» (`prison_01..03`) и «Alex’s First Flight» (`airplane_01`, …).
 
 Сцены рендерятся из кода: SVG-анимация, Chromium (Playwright) и FFmpeg.
 
@@ -8,12 +8,14 @@
 - `lib/anim.js` — ключевые кадры, плавность движения, моргание
 - `lib/characters.js` — риг персонажей (Саня/Алекс, мама, парень, девушка, мужчина в лифте, охранник, сосед-заключённый; вид со спины): части тела, мимика, кисти, предметы (лопатка, чашка), IK для рук
 - `lib/lipsync.js` — синхронизация губ с реальной озвучкой (только в окнах реплик персонажа)
+- `lib/airplane.js` — общий салон самолёта (кресла, иллюминаторы, проход) и вид Алекса/стюардессы для всех сцен «First Flight»
 - `lib/subs.js` — караоке-субтитры (общие для сцен)
 - `scenes/scene_cafe/` — сцена в кофейне (озвучка 29.2–44.8 с)
 - `scenes/scene_elevator/` — финальная сцена в лифте (озвучка 44.95–62.93 с + 1.8 с паузы); `sfx.json` — звуковые эффекты, `voice.wav` — чистый голос, `audio.wav` — голос + эффекты
 - `scenes/prison_01/` — «Alex Doesn’t Want to Leave Prison», сцена 1 (озвучка `assets/audio/prison_voiceover_full.mp3`, 0–20.9 с)
 - `scenes/prison_02/` — «Alex…», сцена 2: спор с охранником (озвучка 20.9–41.45 с, без субтитров)
 - `scenes/prison_03/` — «Alex…», сцена 3 (финал): сосед из A-13, «NOOO», выдворение и захлопнутая дверь (озвучка 41.45–82.2 с + 1.25 с паузы); `sfx.json` — лязг замков и удар двери
+- `scenes/airplane_01/` — «Alex’s First Flight», сцена 1 (звук `assets/audio/airplane_voiceover_full.wav` из записи экрана ElevenLabs, 1.45–17.85 с + 0.8 с)
 - `scenes/scene_01/` — сцена 1: `scene.js` (комната, тайминг, камера, эффекты, субтитры), `index.html`, `audio.wav`, `timing.json` / `timing.js`
 - `assets/` — исходная озвучка, референс персонажа, шрифты
 - `tools/build_timing.py <сцена> <начало> <конец>` — вырезает фрагмент озвучки, считает тайминги слов и огибающую громкости для синхронизации губ
@@ -34,6 +36,8 @@ python3 tools/build_timing.py prison_02 20.9 41.45 assets/audio/prison_voiceover
 node tools/render.js prison_02 --out output/scene_02_guard_argument.mp4
 python3 tools/build_timing.py prison_03 41.45 83.45 assets/audio/prison_voiceover_full.mp3 tools/prison_voiceover_full_tokens.json && python3 tools/mix_audio.py prison_03
 node tools/render.js prison_03 --out output/scene_03_prison_final.mp4
+python3 tools/build_timing.py airplane_01 1.45 17.85 assets/audio/airplane_voiceover_full.wav tools/airplane_voiceover_full_tokens.json 0.8
+node tools/render.js airplane_01 --out output/scene_01_airplane.mp4
 node tools/render.js scene_01 --stills 6.5,9.7,16.6  # отдельные кадры для проверки
 ```
 Чтобы посмотреть сцену в браузере, откройте `scenes/scene_01/index.html` и кликните по экрану: включится звук.
