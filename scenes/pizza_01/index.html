@@ -1,0 +1,71 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Alex Orders a Pizza — Scene 1</title>
+<style>
+  @font-face { font-family: Fredoka; src: url(../../assets/fonts/Fredoka-Bold.ttf); font-weight: 700; }
+  @font-face { font-family: Fredoka; src: url(../../assets/fonts/Fredoka-SemiBold.ttf); font-weight: 600; }
+  @font-face { font-family: Montserrat; src: url(../../assets/fonts/Montserrat-Black.ttf); font-weight: 900; }
+  html, body { margin: 0; background: #111; }
+  #stage { position: relative; width: 1080px; height: 1920px; overflow: hidden; background: #000; transform-origin: 0 0; }
+  #svg { position: absolute; inset: 0; }
+  #title { position: absolute; left: 0; right: 0; top: 190px; text-align: center; font-family: Fredoka; }
+  .badge { display: inline-block; padding: 14px 34px; border-radius: 999px; background: #161616; color: #ffd84a;
+           font-weight: 600; font-size: 38px; letter-spacing: 6px; box-shadow: 0 8px 0 rgba(0,0,0,.25); }
+  .ttl { margin-top: 26px; font-weight: 700; font-size: 84px; line-height: 1.05; color: #fff;
+         -webkit-text-stroke: 16px #141414; paint-order: stroke fill; text-shadow: 0 10px 0 rgba(0,0,0,.25); }
+  .ttl span { color: #8fe9ff; font-size: 104px; }
+  #subs { position: absolute; left: 50px; right: 50px; top: 1440px; text-align: center; font-family: Fredoka; }
+  .phrase { display: inline-block; font-weight: 700; font-size: 70px; line-height: 1.16; color: #fff;
+            -webkit-text-stroke: 14px #141414; paint-order: stroke fill; text-shadow: 0 8px 0 rgba(0,0,0,.28); }
+  .phrase .w { display: inline-block; transform-origin: 50% 70%; margin: 0 4px; }
+  .phrase .w.todo { color: #e9e9e9; }
+  .phrase .w.on { color: #ffd84a; }
+  .phrase.mom .w.on { color: #ff9fb3; }
+  .phrase.thought { padding: 18px 34px 26px; border-radius: 48px; background: rgba(40, 26, 70, .55); }
+  .phrase.thought .w { color: #e3d6ff; }
+  .phrase.thought .w.on { color: #ffd84a; }
+  .phrase.love { padding: 18px 34px 26px; border-radius: 48px; background: rgba(120, 20, 60, .5); }
+  .phrase.love .w { color: #ffd3e1; }
+  .phrase.love .w.on { color: #ff8fb3; }
+  .phrase.bored { padding: 18px 34px 26px; border-radius: 48px; background: rgba(40, 48, 66, .6); }
+  .phrase.bored .w { color: #d5dcea; }
+  .phrase.bored .w.on { color: #ffd84a; }
+  #subs.words { top: 1080px; }
+  .word { display: inline-block; font-family: Montserrat; font-weight: 900; font-size: 118px; letter-spacing: 1px; color: #fff;
+          -webkit-text-stroke: 22px #0d0d0d; paint-order: stroke fill; text-shadow: 0 10px 0 rgba(0,0,0,.35); transform-origin: 50% 60%; }
+  .phrase.guard .w.on { color: #8fc4ff; }
+  .phrase.alex .w.on { color: #ffd84a; }
+  .phrase.sanya { font-size: 80px; }
+  .phrase.sanya .w { color: #fff; }
+  .phrase.sanya .w.on { color: #ffd84a; }
+</style>
+</head>
+<body>
+<div id="stage">
+  <svg id="svg" width="1080" height="1920" viewBox="0 0 1080 1920" xmlns="http://www.w3.org/2000/svg"></svg>
+  
+</div>
+<audio id="vo" src="audio.wav" preload="auto"></audio>
+<script src="../../lib/anim.js"></script>
+<script src="../../lib/characters.js"></script>
+<script src="../../lib/subs.js"></script>
+<script src="../../lib/lipsync.js"></script>
+<script src="../../lib/airplane.js"></script>
+<script src="timing.js"></script>
+<script src="scene.js"></script>
+<script>
+  // Preview mode (open this file in a browser): click to play with sound.
+  if (!location.search.includes('render')) {
+    const st = document.getElementById('stage');
+    const fit = () => { const k = Math.min(innerWidth / 1080, innerHeight / 1920); st.style.transform = `scale(${k})`; };
+    addEventListener('resize', fit); fit();
+    const vo = document.getElementById('vo');
+    renderFrame(0);
+    document.body.addEventListener('click', () => { vo.currentTime = 0; vo.play(); });
+    (function loop() { renderFrame(vo.currentTime || 0); requestAnimationFrame(loop); })();
+  } else renderFrame(0);
+</script>
+</body>
+</html>

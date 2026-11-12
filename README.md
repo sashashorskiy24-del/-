@@ -18,6 +18,8 @@
 - `scenes/airplane_01/` — «Alex’s First Flight», сцена 1 (звук `assets/audio/airplane_voiceover_full.wav` из записи экрана ElevenLabs, 1.45–17.85 с + 0.8 с)
 - `scenes/airplane_02/` — «Alex’s First Flight», сцена 2: вопрос про туалет (17.85–32.45 с + 2.4 с на facepalm)
 - `scenes/airplane_03/` — «Alex’s First Flight», сцена 3 (финал): окно, дверь, «STUPID questions», шёпот про кондиционер (32.45–56.35 с + 2.9 с)
+- `scenes/pizza_01/` — «Alex Orders a Pizza», сцена 1 (озвучка `assets/audio/pizza_voiceover_full.mp3`, 0–10.5 с + 1.2 с)
+- `scenes/hello/` — 5-секундный ролик: Алекс машет рукой
 - `scenes/scene_01/` — сцена 1: `scene.js` (комната, тайминг, камера, эффекты, субтитры), `index.html`, `audio.wav`, `timing.json` / `timing.js`
 - `assets/` — исходная озвучка, референс персонажа, шрифты
 - `tools/build_timing.py <сцена> <начало> <конец>` — вырезает фрагмент озвучки, считает тайминги слов и огибающую громкости для синхронизации губ
@@ -44,6 +46,8 @@ python3 tools/build_timing.py airplane_02 17.85 32.45 assets/audio/airplane_voic
 node tools/render.js airplane_02 --out output/scene_02_airplane.mp4
 python3 tools/build_timing.py airplane_03 32.45 56.35 assets/audio/airplane_voiceover_full.wav tools/airplane_voiceover_full_tokens.json 2.9
 node tools/render.js airplane_03 --out output/scene_03_airplane_final.mp4
+python3 tools/build_timing.py pizza_01 0 10.5 assets/audio/pizza_voiceover_full.mp3 tools/pizza_voiceover_full_tokens.json 1.2
+node tools/render.js pizza_01 --out output/scene_01_pizza.mp4
 node tools/render.js scene_01 --stills 6.5,9.7,16.6  # отдельные кадры для проверки
 ```
 Чтобы посмотреть сцену в браузере, откройте `scenes/scene_01/index.html` и кликните по экрану: включится звук.
