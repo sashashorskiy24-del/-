@@ -1,7 +1,7 @@
 // "Hello" — 5 s: Alex waves at the camera with a fingerless hand and says "Привет!" (silent track, speech bubble).
 (function () {
   const { kf, prog, blink, lerp, f1 } = A;
-  const LOOK = { smooth: true, armW: 40, legW: 52, shX: 1.3, hipX: 1.35, shoeSc: 1.25, headSc: 1.12, eyeSc: 1.18, handSc: 1.5 };   // same Alex as "First Flight"
+  const LOOK = { smooth: true, armW: 40, legW: 52, shX: 1.3, hipX: 1.35, shoeSc: 1.25, headSc: 1.12, eyeSc: 1.18, handSc: 1.75 };   // same Alex as "First Flight"
   const SAY = [1.25, 1.95];   // when he says "При-вет!"
 
   function alex(t) {
@@ -11,14 +11,14 @@
     const bob = Math.sin(t * 2.2);
     p.y += Math.abs(bob) * -6; p.lean = bob * 1.5;
     // left hand relaxed on the hip
-    p.armL = CH.armIK(p, -1, p.x - 85 * S, p.y - 22 * S, -1); p.handL = 'mitt'; p.handRotL = 0;
+    p.armL = CH.armIK(p, -1, p.x - 85 * S, p.y - 22 * S, -1); p.handL = 'fist'; p.handRotL = 0;
     // right arm: raises, then waves (forearm swings side to side), lowers at the end
     const up = prog(t, 0.3, 0.75, 'outBack') * (1 - prog(t, 4.35, 4.85));
     const wave = Math.sin((t - 0.75) * 9) * prog(t, 0.7, 0.9) * (1 - prog(t, 4.1, 4.4));
     const wx = p.x + (170 + wave * 30) * S, wy = p.y - (232 - Math.abs(wave) * 10) * S;   // forearm up, beside the head   // beside the head, never behind it
     const rest = [p.x + 85 * S, p.y - 22 * S];
     p.armR = CH.armIK(p, 1, lerp(rest[0], wx, up), lerp(rest[1], wy, up), -1);   // elbow out to the side
-    p.handR = 'mitt'; p.handRotR = up > 0.5 ? 180 + wave * 22 : 0;   // palm continues the forearm upwards
+    p.handR = 'glove'; p.handAbsR = up > 0.5 ? 180 - wave * 14 : null;   // fingers up, whole hand tilts with the wave (fingers stay still)
     // face
     const f = { turn: 0, look: [0, 0], mouth: 'smile', open: 0, brow: 0.45, browTilt: 0, eye: 1.1, pupil: 1.15 };
     f.blink = blink(t, [0.2, 2.8, 4.6]);
