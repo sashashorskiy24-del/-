@@ -1,0 +1,512 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Smart Cook — кулінарія готових страв на Дніпровській набережній, Київ</title>
+<meta name="description" content="Smart Cook — кулінарія готових страв від шефів мережі ресторанів «Сито-П’яно». Гарячі страви, свіжі салати, десерти та напої щодня. Київ, Дніпровська набережна. Тел. 050 558 5756.">
+<meta property="og:title" content="Smart Cook — ресторанні страви, готові до вашого столу">
+<meta property="og:description" content="Кулінарія готових страв від шефів «Сито-П’яно». Київ, Дніпровська набережна.">
+<meta property="og:image" content="img/interior.jpg">
+<meta name="theme-color" content="#c8372d">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700;800&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --red: #c8372d; --red-dark: #9f2a22; --red-soft: #f6e1dc;
+    --cream: #f8f3ec; --paper: #fffdf9; --sand: #efe4d4;
+    --ink: #1d1a17; --ink-2: #4a433c; --muted: #7d746a; --line: #e6dccd;
+    --gold: #d9a441; --green: #3f7d4f;
+    --radius: 22px; --shadow: 0 20px 50px -24px rgba(60, 30, 10, .35);
+    --wrap: 1180px;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; background: var(--cream); color: var(--ink); font-family: Manrope, system-ui, sans-serif; font-size: 17px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+  img { max-width: 100%; display: block; }
+  a { color: inherit; }
+  .wrap { width: min(var(--wrap), 100% - 32px); margin-inline: auto; }
+  h1, h2, h3 { font-family: Unbounded, sans-serif; line-height: 1.1; letter-spacing: -.02em; margin: 0; }
+  .eyebrow { display: inline-flex; align-items: center; gap: 10px; font-weight: 700; font-size: 13px; letter-spacing: .14em; text-transform: uppercase; color: var(--red); }
+  .eyebrow::before { content: ""; width: 26px; height: 2px; background: currentColor; }
+  .btn { display: inline-flex; align-items: center; gap: 10px; padding: 16px 26px; border-radius: 999px; font-weight: 700; text-decoration: none; transition: transform .2s, box-shadow .2s, background .2s; white-space: nowrap; }
+  .btn svg { width: 20px; height: 20px; }
+  .btn-red { background: var(--red); color: #fff; box-shadow: 0 12px 30px -12px rgba(200, 55, 45, .7); }
+  .btn-red:hover { background: var(--red-dark); transform: translateY(-2px); }
+  .btn-ghost { border: 1.5px solid var(--ink); color: var(--ink); }
+  .btn-ghost:hover { background: var(--ink); color: var(--cream); transform: translateY(-2px); }
+
+  /* ---------- header ---------- */
+  header { position: sticky; top: 0; z-index: 50; background: rgba(248, 243, 236, .85); backdrop-filter: saturate(1.4) blur(14px); border-bottom: 1px solid transparent; transition: border-color .3s; }
+  header.scrolled { border-color: var(--line); }
+  .nav { display: flex; align-items: center; justify-content: space-between; height: 76px; gap: 20px; }
+  .logo { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+  .logo-mark { width: 46px; height: 46px; border-radius: 50%; background: var(--red); color: #fff; display: grid; place-items: center; font-family: Unbounded; font-weight: 800; font-size: 11px; line-height: .95; text-align: center; letter-spacing: -.02em; box-shadow: inset 0 0 0 3px rgba(255,255,255,.25); }
+  .logo-text { font-family: Unbounded; font-weight: 700; font-size: 18px; }
+  .logo-text small { display: block; font-family: Manrope; font-weight: 600; font-size: 11px; color: var(--muted); letter-spacing: .08em; text-transform: uppercase; }
+  .nav-links { display: flex; gap: 30px; }
+  .nav-links a { text-decoration: none; font-weight: 600; font-size: 15px; color: var(--ink-2); position: relative; }
+  .nav-links a::after { content: ""; position: absolute; left: 0; right: 100%; bottom: -6px; height: 2px; background: var(--red); transition: right .25s; }
+  .nav-links a:hover::after { right: 0; }
+  .nav .btn { padding: 12px 20px; font-size: 15px; }
+  .burger { display: none; background: none; border: 0; width: 44px; height: 44px; border-radius: 12px; cursor: pointer; }
+  .burger span { display: block; width: 22px; height: 2px; background: var(--ink); margin: 5px auto; transition: transform .25s, opacity .25s; }
+
+  /* ---------- hero ---------- */
+  .hero { position: relative; padding: 64px 0 90px; overflow: hidden; }
+  .hero::before { content: ""; position: absolute; width: 760px; height: 760px; right: -220px; top: -260px; border-radius: 50%; background: radial-gradient(circle, rgba(200,55,45,.14), transparent 65%); }
+  .hero-grid { position: relative; display: grid; grid-template-columns: 1.05fr .95fr; gap: 56px; align-items: center; }
+  .hero h1 { font-size: clamp(40px, 5.6vw, 76px); font-weight: 800; margin: 18px 0 22px; }
+  .hero h1 em { font-style: normal; color: var(--red); position: relative; white-space: nowrap; }
+  .hero h1 em::after { content: ""; position: absolute; left: 0; right: 0; bottom: .02em; height: .14em; background: var(--gold); opacity: .55; z-index: -1; border-radius: 4px; }
+  .hero p.lead { font-size: 19px; color: var(--ink-2); max-width: 540px; margin: 0 0 32px; }
+  .hero-cta { display: flex; flex-wrap: wrap; gap: 14px; }
+  .hero-meta { display: flex; flex-wrap: wrap; gap: 26px; margin-top: 40px; align-items: center; }
+  .rating { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+  .rating b { font-family: Unbounded; font-size: 30px; }
+  .stars { color: var(--gold); letter-spacing: 2px; font-size: 18px; }
+  .rating small { display: block; color: var(--muted); font-size: 13px; font-weight: 600; }
+  .verified { display: inline-flex; align-items: center; gap: 8px; font-weight: 700; font-size: 14px; color: #2b6cdf; background: #e8f0fe; padding: 8px 14px; border-radius: 999px; }
+  .open-now { display: inline-flex; align-items: center; gap: 8px; font-weight: 700; font-size: 14px; color: var(--green); }
+  .open-now i { width: 9px; height: 9px; border-radius: 50%; background: currentColor; box-shadow: 0 0 0 0 rgba(63,125,79,.6); animation: pulse 2s infinite; }
+  @keyframes pulse { 70% { box-shadow: 0 0 0 10px rgba(63,125,79,0); } 100% { box-shadow: 0 0 0 0 rgba(63,125,79,0); } }
+
+  .collage { position: relative; height: 560px; }
+  .collage figure { position: absolute; margin: 0; border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow); background: var(--sand); }
+  .collage img { width: 100%; height: 100%; object-fit: cover; transition: transform .8s ease; }
+  .collage figure:hover img { transform: scale(1.05); }
+  .c1 { inset: 0 18% 26% 0; }
+  .c2 { width: 46%; height: 44%; right: 0; top: 16%; border: 8px solid var(--cream); }
+  .c3 { width: 50%; height: 40%; left: 14%; bottom: 0; border: 8px solid var(--cream); }
+  .badge-round { position: absolute; right: 4%; bottom: 6%; width: 138px; height: 138px; border-radius: 50%; background: var(--red); color: #fff; display: grid; place-items: center; text-align: center; font-family: Unbounded; font-weight: 700; font-size: 13px; line-height: 1.2; box-shadow: var(--shadow); animation: spin 18s linear infinite; }
+  .badge-round span { animation: spin 18s linear infinite reverse; display: block; padding: 0 16px; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* ---------- marquee ---------- */
+  .marquee { background: var(--ink); color: var(--cream); overflow: hidden; padding: 20px 0; transform: rotate(-1.2deg); margin: 0 -10px; }
+  .marquee-track { display: flex; gap: 48px; width: max-content; animation: run 32s linear infinite; font-family: Unbounded; font-weight: 700; font-size: 22px; white-space: nowrap; }
+  .marquee-track span { display: inline-flex; align-items: center; gap: 48px; }
+  .marquee-track span::after { content: "✦"; color: var(--gold); }
+  @keyframes run { to { transform: translateX(-50%); } }
+
+  /* ---------- sections ---------- */
+  section { padding: 110px 0; }
+  .sec-head { display: flex; justify-content: space-between; align-items: end; gap: 30px; margin-bottom: 52px; flex-wrap: wrap; }
+  .sec-head h2 { font-size: clamp(32px, 4vw, 52px); max-width: 680px; margin-top: 14px; }
+  .sec-head p { max-width: 420px; color: var(--ink-2); margin: 0; }
+
+  .about-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+  .card { background: var(--paper); border: 1px solid var(--line); border-radius: var(--radius); padding: 34px 30px; transition: transform .3s, box-shadow .3s; }
+  .card:hover { transform: translateY(-6px); box-shadow: var(--shadow); }
+  .ico { width: 58px; height: 58px; border-radius: 18px; background: var(--red-soft); color: var(--red); display: grid; place-items: center; margin-bottom: 22px; }
+  .ico svg { width: 28px; height: 28px; }
+  .card h3 { font-size: 21px; margin-bottom: 10px; }
+  .card p { margin: 0; color: var(--ink-2); }
+  .quote { margin-top: 26px; background: var(--red); color: #fff; border-radius: var(--radius); padding: 46px 52px; display: grid; grid-template-columns: auto 1fr; gap: 30px; align-items: center; position: relative; overflow: hidden; }
+  .quote::after { content: "“"; position: absolute; right: 30px; top: -40px; font-family: Unbounded; font-size: 260px; opacity: .12; }
+  .quote .big { font-family: Unbounded; font-size: 64px; font-weight: 800; line-height: 1; }
+  .quote p { margin: 0; font-size: 20px; font-weight: 500; max-width: 760px; }
+
+  /* menu */
+  #menu { background: var(--paper); border-block: 1px solid var(--line); }
+  .tabs { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 34px; }
+  .tab { border: 1.5px solid var(--line); background: transparent; padding: 12px 22px; border-radius: 999px; font: 700 15px Manrope; color: var(--ink-2); cursor: pointer; transition: all .2s; }
+  .tab:hover { border-color: var(--ink); color: var(--ink); }
+  .tab[aria-selected="true"] { background: var(--ink); border-color: var(--ink); color: var(--cream); }
+  .menu-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  .dish { border-radius: var(--radius); background: var(--cream); padding: 26px; display: flex; flex-direction: column; gap: 10px; border: 1px solid var(--line); animation: fadeUp .45s ease both; }
+  .dish .emoji { font-size: 40px; width: 72px; height: 72px; border-radius: 20px; background: var(--paper); display: grid; place-items: center; box-shadow: 0 8px 20px -14px rgba(0,0,0,.4); }
+  .dish h3 { font-size: 18px; margin-top: 6px; }
+  .dish p { margin: 0; color: var(--muted); font-size: 15px; }
+  .tag { align-self: flex-start; font-size: 12px; font-weight: 700; color: var(--red); background: var(--red-soft); padding: 5px 11px; border-radius: 999px; }
+  .menu-note { margin-top: 30px; display: flex; gap: 14px; align-items: center; color: var(--ink-2); font-size: 15px; background: var(--cream); border: 1px dashed var(--line); padding: 18px 22px; border-radius: 16px; }
+  .menu-note a { color: var(--red); font-weight: 700; }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+
+  /* gallery */
+  .gallery { display: grid; grid-template-columns: 1.3fr 1fr 1fr; grid-template-rows: 280px 280px; gap: 18px; }
+  .gallery figure { margin: 0; border-radius: var(--radius); overflow: hidden; position: relative; background: var(--sand); }
+  .gallery figure:first-child { grid-row: span 2; }
+  .gallery figure:last-child { grid-column: span 2; }
+  .gallery img { width: 100%; height: 100%; object-fit: cover; transition: transform .8s; }
+  .gallery figure:hover img { transform: scale(1.06); }
+  .gallery figcaption { position: absolute; left: 16px; bottom: 16px; background: rgba(29,26,23,.72); color: #fff; font-weight: 700; font-size: 14px; padding: 8px 14px; border-radius: 999px; backdrop-filter: blur(6px); }
+
+  /* steps */
+  .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; counter-reset: s; }
+  .step { position: relative; padding: 34px 30px 30px; border-radius: var(--radius); background: var(--paper); border: 1px solid var(--line); }
+  .step::before { counter-increment: s; content: "0" counter(s); font-family: Unbounded; font-weight: 800; font-size: 54px; color: var(--red); opacity: .18; position: absolute; right: 24px; top: 12px; }
+  .step h3 { font-size: 20px; margin: 14px 0 10px; }
+  .step p { margin: 0; color: var(--ink-2); }
+
+  /* reviews */
+  .reviews { display: grid; grid-template-columns: .9fr 1.1fr; gap: 26px; align-items: stretch; }
+  .score { background: var(--ink); color: var(--cream); border-radius: var(--radius); padding: 44px; display: flex; flex-direction: column; justify-content: center; gap: 10px; }
+  .score .num { font-family: Unbounded; font-weight: 800; font-size: 96px; line-height: 1; }
+  .score .stars { font-size: 26px; }
+  .score p { margin: 0; color: #cfc6ba; }
+  .bars { background: var(--paper); border: 1px solid var(--line); border-radius: var(--radius); padding: 40px; display: flex; flex-direction: column; justify-content: center; gap: 14px; }
+  .bar { display: grid; grid-template-columns: 22px 1fr 34px; gap: 14px; align-items: center; font-weight: 700; color: var(--ink-2); }
+  .bar div { height: 10px; border-radius: 999px; background: var(--sand); overflow: hidden; }
+  .bar div i { display: block; height: 100%; background: var(--gold); border-radius: inherit; width: 0; transition: width 1.2s ease; }
+  .bars .btn { align-self: flex-start; margin-top: 12px; }
+
+  /* contact */
+  #contact { padding-bottom: 80px; }
+  .contact { display: grid; grid-template-columns: 1fr 1.15fr; border-radius: 28px; overflow: hidden; background: var(--paper); border: 1px solid var(--line); box-shadow: var(--shadow); }
+  .contact-info { padding: 52px; display: flex; flex-direction: column; gap: 26px; }
+  .contact-info h2 { font-size: clamp(30px, 3.4vw, 44px); }
+  .row { display: flex; gap: 16px; align-items: flex-start; }
+  .row .ico { margin: 0; width: 50px; height: 50px; border-radius: 16px; flex: none; }
+  .row .ico svg { width: 24px; height: 24px; }
+  .row small { display: block; color: var(--muted); font-weight: 600; font-size: 13px; text-transform: uppercase; letter-spacing: .08em; }
+  .row a, .row span { font-weight: 700; font-size: 19px; text-decoration: none; }
+  .row a:hover { color: var(--red); }
+  .map { min-height: 460px; background: var(--sand); }
+  .map iframe { width: 100%; height: 100%; min-height: 460px; border: 0; filter: grayscale(.25) contrast(1.05); }
+
+  footer { background: var(--ink); color: #cfc6ba; padding: 56px 0 34px; font-size: 15px; }
+  .foot { display: flex; justify-content: space-between; gap: 30px; flex-wrap: wrap; align-items: center; }
+  footer .logo-text { color: var(--cream); }
+  footer a { text-decoration: none; }
+  footer a:hover { color: #fff; }
+  .foot-links { display: flex; gap: 24px; flex-wrap: wrap; }
+  .copy { margin-top: 34px; padding-top: 24px; border-top: 1px solid #39332d; font-size: 13px; color: #8f857a; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px; }
+
+  .fab { position: fixed; right: 18px; bottom: 18px; z-index: 60; display: none; width: 62px; height: 62px; border-radius: 50%; background: var(--red); color: #fff; place-items: center; box-shadow: 0 14px 30px -10px rgba(200,55,45,.8); }
+  .fab svg { width: 28px; height: 28px; }
+
+  /* reveal on scroll */
+  .reveal { opacity: 0; transform: translateY(28px); transition: opacity .8s ease, transform .8s ease; }
+  .reveal.in { opacity: 1; transform: none; }
+
+  /* ---------- responsive ---------- */
+  @media (max-width: 980px) {
+    .hero-grid { grid-template-columns: 1fr; gap: 40px; }
+    .collage { height: 440px; }
+    .about-grid, .steps, .menu-grid { grid-template-columns: 1fr 1fr; }
+    .reviews, .contact { grid-template-columns: 1fr; }
+    .nav-links { position: fixed; inset: 76px 0 auto; flex-direction: column; gap: 0; background: var(--cream); border-bottom: 1px solid var(--line); padding: 8px 16px 20px; transform: translateY(-120%); transition: transform .35s; z-index: -1; }
+    .nav-links a { padding: 14px 4px; font-size: 18px; border-bottom: 1px solid var(--line); }
+    .nav-links.open { transform: none; }
+    .burger { display: block; }
+    .nav .btn { display: none; }
+  }
+  @media (max-width: 640px) {
+    body { font-size: 16px; }
+    section { padding: 76px 0; }
+    .hero { padding: 36px 0 64px; }
+    .hero p.lead { font-size: 17px; }
+    .hero-cta .btn { flex: 1 1 100%; justify-content: center; }
+    .collage { height: 340px; }
+    .badge-round { width: 104px; height: 104px; font-size: 10.5px; }
+    .about-grid, .steps, .menu-grid { grid-template-columns: 1fr; }
+    .quote { grid-template-columns: 1fr; padding: 34px 28px; }
+    .quote .big { font-size: 48px; }
+    .gallery { grid-template-columns: 1fr 1fr; grid-template-rows: 200px 160px 160px; }
+    .gallery figure:first-child { grid-column: span 2; grid-row: auto; }
+    .gallery figure:last-child { grid-column: span 2; }
+    .contact-info, .bars, .score { padding: 32px 26px; }
+    .score .num { font-size: 72px; }
+    .marquee-track { font-size: 17px; }
+    .fab { display: grid; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation: none !important; transition: none !important; }
+    .reveal { opacity: 1; transform: none; }
+  }
+</style>
+<noscript><style>.reveal{opacity:1;transform:none}</style></noscript>
+</head>
+<body>
+
+<header id="top">
+  <div class="wrap nav">
+    <a class="logo" href="#top" aria-label="Smart Cook — на головну">
+      <span class="logo-mark">SMART<br>COOK</span>
+      <span class="logo-text">Smart Cook<small>Кулінарія · Київ</small></span>
+    </a>
+    <nav class="nav-links" id="navLinks">
+      <a href="#about">Про нас</a>
+      <a href="#menu">Асортимент</a>
+      <a href="#gallery">Галерея</a>
+      <a href="#how">Як замовити</a>
+      <a href="#contact">Контакти</a>
+    </nav>
+    <a class="btn btn-red" href="tel:+380505585756">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1A17 17 0 0 1 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8Z"/></svg>
+      050 558 5756
+    </a>
+    <button class="burger" id="burger" aria-label="Меню" aria-expanded="false"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<main>
+  <!-- HERO -->
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <span class="eyebrow">Кулінарія готових страв</span>
+        <h1>Ресторанний смак — <em>без плити</em></h1>
+        <p class="lead">Smart Cook — кулінарія від шефів мережі ресторанів «Сито-П’яно». Щодня гарячі страви, свіжі салати, десерти та напої, приготовані з любов’ю та увагою до якості. Заходьте на Дніпровську набережну й беріть улюблене до обіду, вечері чи затишної зустрічі.</p>
+        <div class="hero-cta">
+          <a class="btn btn-red" href="tel:+380505585756">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1A17 17 0 0 1 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8Z"/></svg>
+            Зателефонувати
+          </a>
+          <a class="btn btn-ghost" href="https://www.google.com/maps/search/?api=1&query=Smart+Cook+%D0%9A%D1%83%D0%BB%D1%96%D0%BD%D0%B0%D1%80%D1%96%D1%8F+%D0%94%D0%BD%D1%96%D0%BF%D1%80%D0%BE%D0%B2%D1%81%D1%8C%D0%BA%D0%B0+%D0%BD%D0%B0%D0%B1%D0%B5%D1%80%D0%B5%D0%B6%D0%BD%D0%B0+%D0%9A%D0%B8%D1%97%D0%B2" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s-7-6.2-7-12a7 7 0 0 1 14 0c0 5.8-7 12-7 12Z"/><circle cx="12" cy="9" r="2.5"/></svg>
+            Прокласти маршрут
+          </a>
+        </div>
+        <div class="hero-meta">
+          <a class="rating" href="https://www.google.com/maps/search/?api=1&query=Smart+Cook+%D0%9A%D1%83%D0%BB%D1%96%D0%BD%D0%B0%D1%80%D1%96%D1%8F+%D0%94%D0%BD%D1%96%D0%BF%D1%80%D0%BE%D0%B2%D1%81%D1%8C%D0%BA%D0%B0+%D0%BD%D0%B0%D0%B1%D0%B5%D1%80%D0%B5%D0%B6%D0%BD%D0%B0" target="_blank" rel="noopener">
+            <b>5.0</b>
+            <span><span class="stars">★★★★★</span><small>11 відгуків у Google</small></span>
+          </a>
+          <span class="verified">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2 4 5v6c0 5 3.4 9.7 8 11 4.6-1.3 8-6 8-11V5l-8-3Zm-1.2 14.2-3.5-3.5 1.4-1.4 2.1 2.1 4.9-4.9 1.4 1.4-6.3 6.3Z"/></svg>
+            Перевірено Google
+          </span>
+        </div>
+      </div>
+      <div class="collage reveal">
+        <figure class="c1"><img src="img/interior.jpg" alt="Інтер’єр кулінарії Smart Cook з фірмовою вивіскою"></figure>
+        <figure class="c2"><img src="img/fridge.jpg" alt="Вітрина-холодильник із готовими стравами та напоями"></figure>
+        <figure class="c3"><img src="img/bakery.jpg" alt="Свіжа випічка в кошику"></figure>
+        <div class="badge-round"><span>Від шефів «Сито-П’яно»</span></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="marquee" aria-hidden="true">
+    <div class="marquee-track">
+      <span>Гарячі страви</span><span>Свіжі салати</span><span>Десерти</span><span>Напої</span><span>Готуємо щодня</span><span>Беріть із собою</span>
+      <span>Гарячі страви</span><span>Свіжі салати</span><span>Десерти</span><span>Напої</span><span>Готуємо щодня</span><span>Беріть із собою</span>
+    </div>
+  </div>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <div><span class="eyebrow">Про нас</span><h2>Не потрібно витрачати час на готування</h2></div>
+        <p>Насолоджуйтеся стравами ресторанного рівня, коли вам зручно: на обід у будній день, на вечерю вдома чи до столу для гостей.</p>
+      </div>
+      <div class="about-grid">
+        <article class="card reveal">
+          <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 13.9a4 4 0 0 1 1.2-7.8 5 5 0 0 1 9.6 0A4 4 0 0 1 18 13.9V20H6v-6.1Z"/><path d="M6 17h12"/></svg></div>
+          <h3>Шефи «Сито-П’яно»</h3>
+          <p>Рецептури та якість від команди відомої мережі ресторанів — той самий смак, але готовий до вашого столу.</p>
+        </article>
+        <article class="card reveal">
+          <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div>
+          <h3>Свіже щодня</h3>
+          <p>Щодня ми пропонуємо гарячі страви, свіжі салати, десерти та напої, приготовані з любов’ю та увагою до якості.</p>
+        </article>
+        <article class="card reveal">
+          <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 8h14l-1.4 11.2a2 2 0 0 1-2 1.8H8.4a2 2 0 0 1-2-1.8L5 8Z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg></div>
+          <h3>Швидко та з собою</h3>
+          <p>Заходьте, обирайте улюблені страви на вітрині — і насолоджуйтеся справжнім смаком без зайвих турбот.</p>
+        </article>
+      </div>
+      <div class="quote reveal">
+        <div class="big">5.0★</div>
+        <p>Наша найкраща реклама — гості. Кулінарія має максимальну оцінку від відвідувачів у Google.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- MENU -->
+  <section id="menu">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <div><span class="eyebrow">Асортимент</span><h2>Що на вітрині сьогодні</h2></div>
+        <p>Чотири напрямки, які оновлюються щодня. Оберіть категорію, щоб побачити, що можна взяти з собою.</p>
+      </div>
+      <div class="tabs reveal" role="tablist" aria-label="Категорії">
+        <button class="tab" role="tab" aria-selected="true" data-cat="hot">🔥 Гарячі страви</button>
+        <button class="tab" role="tab" aria-selected="false" data-cat="salad">🥗 Салати</button>
+        <button class="tab" role="tab" aria-selected="false" data-cat="dessert">🍰 Десерти та випічка</button>
+        <button class="tab" role="tab" aria-selected="false" data-cat="drink">🥤 Напої</button>
+      </div>
+      <div class="menu-grid" id="menuGrid"></div>
+      <div class="menu-note reveal">
+        <span style="font-size:26px">📞</span>
+        <span>Асортимент змінюється щодня. Дізнатися, що сьогодні на вітрині, або відкласти страву можна за телефоном <a href="tel:+380505585756">050 558 5756</a>.</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- GALLERY -->
+  <section id="gallery">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <div><span class="eyebrow">Галерея</span><h2>Затишна кулінарія на набережній</h2></div>
+        <p>Теплий інтер’єр, вітрини з готовими стравами та свіжа випічка — заходьте на хвилинку чи залишайтеся на каву.</p>
+      </div>
+      <div class="gallery reveal">
+        <figure><img src="img/interior.jpg" alt="Інтер’єр Smart Cook" loading="lazy"><figcaption>Наш інтер’єр</figcaption></figure>
+        <figure><img src="img/bakery.jpg" alt="Свіжа випічка" loading="lazy"><figcaption>Свіжа випічка</figcaption></figure>
+        <figure><img src="img/fridge.jpg" alt="Вітрина з готовими стравами" loading="lazy"><figcaption>Готові страви</figcaption></figure>
+        <figure><img src="img/counter.jpg" alt="Прилавок кулінарії" loading="lazy"><figcaption>Завжди раді вам</figcaption></figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW -->
+  <section id="how" style="padding-top:0">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <div><span class="eyebrow">Як це працює</span><h2>Три кроки до смачної вечері</h2></div>
+      </div>
+      <div class="steps">
+        <article class="step reveal">
+          <div class="ico"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1A17 17 0 0 1 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8Z"/></svg></div>
+          <h3>Зателефонуйте або заходьте</h3>
+          <p>Уточніть асортимент дня за телефоном чи просто завітайте до нас на Дніпровську набережну.</p>
+        </article>
+        <article class="step reveal">
+          <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 6h16M4 12h16M4 18h10"/></svg></div>
+          <h3>Оберіть улюблене</h3>
+          <p>Гарячі страви, салати, десерти, напої — збирайте свій ідеальний обід або вечерю на всю родину.</p>
+        </article>
+        <article class="step reveal">
+          <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21c-4.4-2.6-8-6-8-10.2A4.8 4.8 0 0 1 12 7.5a4.8 4.8 0 0 1 8 3.3C20 15 16.4 18.4 12 21Z"/></svg></div>
+          <h3>Насолоджуйтеся</h3>
+          <p>Розігрійте вдома за кілька хвилин — і смакуйте ресторанну кухню без зайвих турбот.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- REVIEWS -->
+  <section id="reviews" style="padding-top:0">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <div><span class="eyebrow">Відгуки</span><h2>Гості оцінюють на максимум</h2></div>
+      </div>
+      <div class="reviews">
+        <div class="score reveal">
+          <span class="num">5.0</span>
+          <span class="stars">★★★★★</span>
+          <p>Середня оцінка на основі 11 відгуків у Google</p>
+        </div>
+        <div class="bars reveal" id="bars">
+          <div class="bar"><span>5</span><div><i data-w="100"></i></div><span>11</span></div>
+          <div class="bar"><span>4</span><div><i data-w="0"></i></div><span>0</span></div>
+          <div class="bar"><span>3</span><div><i data-w="0"></i></div><span>0</span></div>
+          <div class="bar"><span>2</span><div><i data-w="0"></i></div><span>0</span></div>
+          <div class="bar"><span>1</span><div><i data-w="0"></i></div><span>0</span></div>
+          <a class="btn btn-ghost" href="https://www.google.com/maps/search/?api=1&query=Smart+Cook+%D0%9A%D1%83%D0%BB%D1%96%D0%BD%D0%B0%D1%80%D1%96%D1%8F+%D0%94%D0%BD%D1%96%D0%BF%D1%80%D0%BE%D0%B2%D1%81%D1%8C%D0%BA%D0%B0+%D0%BD%D0%B0%D0%B1%D0%B5%D1%80%D0%B5%D0%B6%D0%BD%D0%B0" target="_blank" rel="noopener">Читати відгуки в Google →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" style="padding-top:0">
+    <div class="wrap">
+      <div class="contact reveal">
+        <div class="contact-info">
+          <div><span class="eyebrow">Контакти</span><h2 style="margin-top:14px">Чекаємо на вас</h2></div>
+          <div class="row">
+            <div class="ico"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1A17 17 0 0 1 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8Z"/></svg></div>
+            <div><small>Телефон</small><a href="tel:+380505585756">050 558 5756</a></div>
+          </div>
+          <div class="row">
+            <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s-7-6.2-7-12a7 7 0 0 1 14 0c0 5.8-7 12-7 12Z"/><circle cx="12" cy="9" r="2.5"/></svg></div>
+            <div><small>Адреса</small><span>Київ, Дніпровська набережна</span></div>
+          </div>
+          <div class="row">
+            <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div>
+            <div><small>Графік роботи</small><span>Актуальні години — у Google Maps</span></div>
+          </div>
+          <div class="hero-cta">
+            <a class="btn btn-red" href="tel:+380505585756">Зателефонувати</a>
+            <a class="btn btn-ghost" href="https://www.google.com/maps/search/?api=1&query=Smart+Cook+%D0%9A%D1%83%D0%BB%D1%96%D0%BD%D0%B0%D1%80%D1%96%D1%8F+%D0%94%D0%BD%D1%96%D0%BF%D1%80%D0%BE%D0%B2%D1%81%D1%8C%D0%BA%D0%B0+%D0%BD%D0%B0%D0%B1%D0%B5%D1%80%D0%B5%D0%B6%D0%BD%D0%B0+%D0%9A%D0%B8%D1%97%D0%B2" target="_blank" rel="noopener">Маршрут</a>
+          </div>
+        </div>
+        <div class="map">
+          <iframe title="Smart Cook на карті" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+            src="https://maps.google.com/maps?q=Smart%20Cook%20%D0%9A%D1%83%D0%BB%D1%96%D0%BD%D0%B0%D1%80%D1%96%D1%8F%20%D0%94%D0%BD%D1%96%D0%BF%D1%80%D0%BE%D0%B2%D1%81%D1%8C%D0%BA%D0%B0%20%D0%BD%D0%B0%D0%B1%D0%B5%D1%80%D0%B5%D0%B6%D0%BD%D0%B0%20%D0%9A%D0%B8%D1%97%D0%B2&z=15&output=embed"></iframe>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot">
+      <a class="logo" href="#top"><span class="logo-mark">SMART<br>COOK</span><span class="logo-text">Smart Cook<small style="color:#8f857a">Кулінарія · Дніпровська набережна</small></span></a>
+      <nav class="foot-links">
+        <a href="#about">Про нас</a><a href="#menu">Асортимент</a><a href="#gallery">Галерея</a><a href="#contact">Контакти</a>
+        <a href="tel:+380505585756">050 558 5756</a>
+      </nav>
+    </div>
+    <div class="copy"><span>© <span id="year"></span> Smart Cook Кулінарія. Від шефів мережі ресторанів «Сито-П’яно».</span><span>Київ, Україна</span></div>
+  </div>
+</footer>
+
+<a class="fab" href="tel:+380505585756" aria-label="Зателефонувати">
+  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1A17 17 0 0 1 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8Z"/></svg>
+</a>
+
+<script>
+  // ---- examples of the assortment (owner can replace with the real daily menu) ----
+  const MENU = {
+    hot: [
+      ['🍗', 'Курка запечена з травами', 'Соковите філе з ароматними травами та овочами', 'Хіт'],
+      ['🍝', 'Паста в ресторанному стилі', 'Класичні соуси за рецептурами шефів', ''],
+      ['🥘', 'Рагу та тушковані страви', 'Ситні домашні страви для обіду й вечері', ''],
+      ['🍛', 'Гарніри', 'Картопля, рис, булгур, запечені овочі', ''],
+      ['🥟', 'Вареники та сирники', 'Як удома, тільки без клопоту', 'Сніданок'],
+      ['🍲', 'Супи дня', 'Гарячі супи, які змінюються щодня', 'Щодня'],
+    ],
+    salad: [
+      ['🥗', 'Свіжі салати', 'Збалансовані салати з сезонних овочів', 'Щодня'],
+      ['🥙', 'Салати з м’ясом і рибою', 'Ситні варіанти для повноцінного обіду', ''],
+      ['🫒', 'Легкі закуски', 'Ідеально до столу для гостей', ''],
+    ],
+    dessert: [
+      ['🥐', 'Свіжа випічка', 'Булочки та випічка, як на нашій вітрині', 'Свіже'],
+      ['🍰', 'Десерти від шефів', 'Тістечка та десерти до кави чи чаю', ''],
+      ['🍪', 'Солодке з собою', 'Маленька радість на кожен день', ''],
+    ],
+    drink: [
+      ['🥤', 'Прохолодні напої', 'Лимонади, соки та вода у вітрині-холодильнику', ''],
+      ['☕', 'Кава та чай', 'Щоб доповнити десерт', ''],
+      ['🍷', 'Вино до вечері', 'Підберіть пляшку до святкового столу', ''],
+    ],
+  };
+  const grid = document.getElementById('menuGrid');
+  function showCat(cat) {
+    grid.innerHTML = MENU[cat].map(([e, t, d, tag], i) =>
+      `<article class="dish" style="animation-delay:${i * 60}ms"><div class="emoji">${e}</div>${tag ? `<span class="tag">${tag}</span>` : ''}<h3>${t}</h3><p>${d}</p></article>`).join('');
+    document.querySelectorAll('.tab').forEach(b => b.setAttribute('aria-selected', b.dataset.cat === cat));
+  }
+  document.querySelectorAll('.tab').forEach(b => b.addEventListener('click', () => showCat(b.dataset.cat)));
+  showCat('hot');
+
+  // ---- header shadow, burger ----
+  const header = document.querySelector('header');
+  addEventListener('scroll', () => header.classList.toggle('scrolled', scrollY > 10), { passive: true });
+  const burger = document.getElementById('burger'), links = document.getElementById('navLinks');
+  burger.addEventListener('click', () => { const o = links.classList.toggle('open'); burger.setAttribute('aria-expanded', o); });
+  links.querySelectorAll('a').forEach(a => a.addEventListener('click', () => links.classList.remove('open')));
+
+  // ---- reveal on scroll + rating bars ----
+  const io = new IntersectionObserver(es => es.forEach(e => {
+    if (!e.isIntersecting) return;
+    e.target.classList.add('in');
+    if (e.target.id === 'bars') e.target.querySelectorAll('i').forEach(i => i.style.width = i.dataset.w + '%');
+    io.unobserve(e.target);
+  }), { threshold: .15 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+  document.getElementById('year').textContent = new Date().getFullYear();
+</script>
+</body>
+</html>
