@@ -1,0 +1,410 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Шашлична №1 — шашлик на живому вогні, Київ, Срібнокільська 20Г</title>
+<meta name="description" content="Шашлична №1 у Києві: соковитий шашлик на мангалі, грузинська та кавказька кухня, жива музика по п’ятницях і суботах. вул. Срібнокільська, 20Г. Рейтинг 4.4 — 900 відгуків у Google.">
+<meta property="og:title" content="Шашлична №1 — шашлик на живому вогні">
+<meta property="og:description" content="Соковитий шашлик, ароматні супи, жива музика. Київ, вул. Срібнокільська, 20Г.">
+<meta property="og:image" content="img/coals.jpg">
+<meta name="theme-color" content="#140f0c">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Rubik:wght@400;500;600;700&display=swap" rel="stylesheet">
+<noscript><style>.reveal{opacity:1;transform:none}</style></noscript>
+<style>
+  :root {
+    --coal: #140f0c; --coal-2: #1d1612; --coal-3: #2a201a; --line: #3a2d24;
+    --ember: #ff6a1a; --ember-2: #ffb347; --red: #d63a1f; --gold: #f2b84b;
+    --bone: #f5ede3; --smoke: #c9bcae; --muted: #9a8c7e;
+    --radius: 20px; --wrap: 1200px;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; background: var(--coal); color: var(--bone); font-family: Rubik, system-ui, sans-serif; font-size: 17px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+  img { display: block; max-width: 100%; }
+  a { color: inherit; }
+  .wrap { width: min(var(--wrap), 100% - 32px); margin-inline: auto; }
+  h1, h2, h3 { font-family: Oswald, sans-serif; text-transform: uppercase; letter-spacing: .01em; line-height: 1.02; margin: 0; }
+  .eyebrow { display: inline-flex; align-items: center; gap: 10px; color: var(--ember-2); font-weight: 600; font-size: 13px; letter-spacing: .2em; text-transform: uppercase; }
+  .eyebrow::before { content: ""; width: 30px; height: 2px; background: linear-gradient(90deg, var(--ember), var(--ember-2)); }
+  .btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; padding: 16px 28px; border-radius: 999px; font-weight: 700; text-decoration: none; letter-spacing: .02em; transition: transform .2s, box-shadow .2s, background .2s, color .2s; }
+  .btn svg { width: 20px; height: 20px; }
+  .btn-fire { background: linear-gradient(135deg, var(--ember), var(--red)); color: #fff; box-shadow: 0 14px 34px -12px rgba(255, 106, 26, .8); }
+  .btn-fire:hover { transform: translateY(-2px); box-shadow: 0 18px 40px -10px rgba(255, 106, 26, .95); }
+  .btn-line { border: 1.5px solid rgba(245, 237, 227, .5); color: var(--bone); }
+  .btn-line:hover { background: var(--bone); color: var(--coal); transform: translateY(-2px); }
+
+  /* header */
+  header { position: fixed; inset: 0 0 auto; z-index: 50; transition: background .3s, border-color .3s; border-bottom: 1px solid transparent; }
+  header.scrolled { background: rgba(20, 15, 12, .88); backdrop-filter: blur(12px); border-color: var(--line); }
+  .nav { height: 78px; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+  .logo { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+  .logo-mark { width: 48px; height: 48px; border-radius: 14px; background: linear-gradient(135deg, var(--ember), var(--red)); display: grid; place-items: center; font-family: Oswald; font-weight: 700; font-size: 20px; color: #fff; box-shadow: 0 8px 22px -8px rgba(255,106,26,.9); }
+  .logo-text { font-family: Oswald; font-weight: 700; font-size: 22px; text-transform: uppercase; letter-spacing: .02em; line-height: 1; }
+  .logo-text small { display: block; font-family: Rubik; font-weight: 500; font-size: 11px; letter-spacing: .18em; color: var(--muted); margin-top: 4px; }
+  .nav-links { display: flex; gap: 30px; }
+  .nav-links a { text-decoration: none; font-weight: 500; font-size: 15px; color: var(--smoke); transition: color .2s; }
+  .nav-links a:hover { color: var(--ember-2); }
+  .nav .btn { padding: 12px 22px; font-size: 15px; }
+  .burger { display: none; width: 44px; height: 44px; background: none; border: 0; cursor: pointer; }
+  .burger span { display: block; width: 24px; height: 2px; background: var(--bone); margin: 6px auto; }
+
+  /* hero */
+  .hero { position: relative; min-height: 100vh; min-height: 100svh; display: flex; align-items: flex-end; padding: 140px 0 90px; overflow: hidden; isolation: isolate; }
+  .hero-bg { position: absolute; inset: 0; z-index: -2; }
+  .hero-bg img { width: 100%; height: 100%; object-fit: cover; filter: saturate(1.15) contrast(1.05); transform: scale(1.08); animation: breathe 14s ease-in-out infinite alternate; }
+  @keyframes breathe { to { transform: scale(1.16); } }
+  .hero::before { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(180deg, rgba(20,15,12,.55) 0%, rgba(20,15,12,.35) 35%, rgba(20,15,12,.92) 82%, var(--coal) 100%), radial-gradient(ellipse at 70% 90%, rgba(255,106,26,.35), transparent 60%); }
+  .embers { position: absolute; inset: 0; z-index: -1; pointer-events: none; overflow: hidden; }
+  .embers i { position: absolute; bottom: -10px; width: 4px; height: 4px; border-radius: 50%; background: var(--ember-2); box-shadow: 0 0 10px 2px rgba(255,140,40,.9); opacity: 0; animation: rise linear infinite; }
+  @keyframes rise { 0% { opacity: 0; transform: translate(0, 0) scale(1); } 10% { opacity: 1; } 100% { opacity: 0; transform: translate(var(--dx), -90vh) scale(.3); } }
+  .hero h1 { font-size: clamp(56px, 10vw, 150px); font-weight: 700; margin: 16px 0 20px; text-shadow: 0 10px 40px rgba(0,0,0,.5); }
+  .hero h1 span { display: block; background: linear-gradient(90deg, var(--ember-2), var(--ember) 45%, var(--red)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .hero .lead { font-size: 20px; max-width: 620px; color: var(--smoke); margin: 0 0 34px; }
+  .hero-cta { display: flex; flex-wrap: wrap; gap: 14px; }
+  .facts { margin-top: 56px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; }
+  .fact { background: rgba(29, 22, 18, .82); backdrop-filter: blur(8px); padding: 22px 24px; }
+  .fact b { display: block; font-family: Oswald; font-size: 32px; font-weight: 600; color: var(--bone); line-height: 1.1; }
+  .fact b em { font-style: normal; color: var(--gold); font-size: 22px; }
+  .fact span { color: var(--muted); font-size: 14px; }
+
+  section { padding: 120px 0; position: relative; }
+  .sec-head { display: flex; justify-content: space-between; align-items: end; gap: 30px; flex-wrap: wrap; margin-bottom: 54px; }
+  .sec-head h2 { font-size: clamp(40px, 5.5vw, 76px); margin-top: 14px; max-width: 760px; }
+  .sec-head h2 span { color: var(--ember); }
+  .sec-head p { max-width: 430px; color: var(--smoke); margin: 0; }
+
+  /* about */
+  .about { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+  .about-img { position: relative; border-radius: 26px; overflow: hidden; aspect-ratio: 4/5; }
+  .about-img img { width: 100%; height: 100%; object-fit: cover; }
+  .about-img::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 55%, rgba(20,15,12,.8)); }
+  .stamp { position: absolute; left: 22px; bottom: 22px; z-index: 2; display: flex; gap: 12px; align-items: center; background: rgba(20,15,12,.75); backdrop-filter: blur(8px); border: 1px solid var(--line); padding: 12px 18px; border-radius: 999px; font-weight: 600; }
+  .stamp i { width: 10px; height: 10px; border-radius: 50%; background: var(--ember); box-shadow: 0 0 12px var(--ember); animation: flick 1.4s infinite alternate; }
+  @keyframes flick { to { opacity: .4; } }
+  .about h2 { font-size: clamp(40px, 5vw, 68px); margin: 14px 0 22px; }
+  .about h2 span { color: var(--ember); }
+  .about p { color: var(--smoke); margin: 0 0 18px; }
+  .points { list-style: none; padding: 0; margin: 30px 0 0; display: grid; gap: 14px; }
+  .points li { display: flex; gap: 14px; align-items: flex-start; padding: 18px 20px; background: var(--coal-2); border: 1px solid var(--line); border-radius: 16px; }
+  .points li b { display: block; font-family: Oswald; font-size: 20px; text-transform: uppercase; font-weight: 600; }
+  .points li span { color: var(--muted); font-size: 15px; }
+  .points .ico { flex: none; width: 46px; height: 46px; border-radius: 14px; display: grid; place-items: center; background: rgba(255,106,26,.12); color: var(--ember); font-size: 22px; }
+
+  /* menu highlights */
+  #menu { background: var(--coal-2); border-block: 1px solid var(--line); }
+  .dishes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+  .dish { background: var(--coal); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; transition: transform .35s, border-color .35s, box-shadow .35s; }
+  .dish:hover { transform: translateY(-8px); border-color: rgba(255,106,26,.6); box-shadow: 0 24px 50px -24px rgba(255,106,26,.55); }
+  .dish figure { margin: 0; aspect-ratio: 4/3; overflow: hidden; }
+  .dish img { width: 100%; height: 100%; object-fit: cover; transition: transform .8s; }
+  .dish:hover img { transform: scale(1.07); }
+  .dish div { padding: 22px 24px 26px; }
+  .dish h3 { font-size: 24px; margin-bottom: 8px; }
+  .dish p { margin: 0; color: var(--muted); font-size: 15px; }
+  .chip { display: inline-block; margin-bottom: 10px; font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--coal); background: var(--gold); padding: 4px 10px; border-radius: 999px; }
+  .menu-cta { margin-top: 40px; display: flex; flex-wrap: wrap; gap: 20px; justify-content: space-between; align-items: center; padding: 28px 32px; border-radius: var(--radius); background: linear-gradient(120deg, rgba(255,106,26,.16), rgba(214,58,31,.08)); border: 1px solid rgba(255,106,26,.35); }
+  .menu-cta p { margin: 0; font-size: 18px; max-width: 640px; }
+
+  /* music */
+  .music { display: grid; grid-template-columns: 1.1fr .9fr; gap: 26px; }
+  .music-card { position: relative; border-radius: 26px; overflow: hidden; min-height: 460px; display: flex; align-items: flex-end; padding: 44px; isolation: isolate; }
+  .music-card img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: -2; }
+  .music-card::before { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(180deg, rgba(20,15,12,.15), rgba(20,15,12,.9)); }
+  .music-card h2 { font-size: clamp(44px, 5.5vw, 78px); }
+  .music-card h2 span { color: var(--ember-2); }
+  .days { display: flex; gap: 12px; margin-top: 20px; flex-wrap: wrap; }
+  .days span { padding: 10px 20px; border-radius: 999px; background: var(--ember); color: #fff; font-weight: 700; font-family: Oswald; font-size: 20px; text-transform: uppercase; letter-spacing: .04em; }
+  .eq { display: flex; align-items: flex-end; gap: 5px; height: 40px; margin-top: 22px; }
+  .eq i { width: 6px; border-radius: 3px; background: var(--ember-2); animation: eq 1s ease-in-out infinite alternate; }
+  @keyframes eq { from { height: 6px; } to { height: 40px; } }
+  .side { display: grid; grid-template-rows: 1fr 1fr; gap: 26px; }
+  .tile { border-radius: 26px; overflow: hidden; position: relative; min-height: 210px; }
+  .tile img { width: 100%; height: 100%; object-fit: cover; }
+  .tile .label { position: absolute; left: 20px; bottom: 20px; background: rgba(20,15,12,.78); backdrop-filter: blur(6px); padding: 10px 16px; border-radius: 999px; font-weight: 600; font-size: 15px; }
+
+  /* gallery strip */
+  .strip { display: grid; grid-template-columns: repeat(6, 1fr); gap: 14px; }
+  .strip figure { margin: 0; aspect-ratio: 1; border-radius: 16px; overflow: hidden; }
+  .strip img { width: 100%; height: 100%; object-fit: cover; transition: transform .6s, filter .6s; filter: saturate(.9); }
+  .strip figure:hover img { transform: scale(1.08); filter: saturate(1.2); }
+
+  /* reviews */
+  .reviews { display: grid; grid-template-columns: .85fr 1.15fr; gap: 26px; }
+  .score { border-radius: 26px; padding: 44px; background: linear-gradient(150deg, var(--ember), var(--red)); color: #fff; display: flex; flex-direction: column; justify-content: center; gap: 6px; position: relative; overflow: hidden; }
+  .score::after { content: "★"; position: absolute; right: -30px; bottom: -80px; font-size: 300px; opacity: .12; }
+  .score .num { font-family: Oswald; font-size: 120px; font-weight: 700; line-height: .95; }
+  .score .stars { font-size: 26px; letter-spacing: 3px; }
+  .score p { margin: 0; opacity: .9; font-weight: 500; }
+  .tips { display: grid; gap: 16px; }
+  .tip { display: flex; gap: 16px; align-items: flex-start; background: var(--coal-2); border: 1px solid var(--line); border-radius: 18px; padding: 22px 24px; }
+  .tip .q { font-family: Oswald; font-size: 46px; line-height: .8; color: var(--ember); }
+  .tip p { margin: 0; font-size: 18px; }
+  .tip small { display: block; color: var(--muted); margin-top: 6px; font-size: 13px; }
+
+  /* contact */
+  .contact { display: grid; grid-template-columns: 1fr 1.1fr; border-radius: 28px; overflow: hidden; border: 1px solid var(--line); background: var(--coal-2); }
+  .contact-info { padding: 52px; display: flex; flex-direction: column; gap: 24px; }
+  .contact-info h2 { font-size: clamp(40px, 4.5vw, 64px); }
+  .row { display: flex; gap: 16px; align-items: flex-start; }
+  .row .ico { flex: none; width: 50px; height: 50px; border-radius: 16px; display: grid; place-items: center; background: rgba(255,106,26,.12); color: var(--ember); }
+  .row .ico svg { width: 24px; height: 24px; }
+  .row small { display: block; color: var(--muted); font-size: 12px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; }
+  .row span { font-size: 19px; font-weight: 600; }
+  .map { min-height: 480px; background: var(--coal-3); }
+  .map iframe { width: 100%; height: 100%; min-height: 480px; border: 0; filter: invert(.9) hue-rotate(180deg) saturate(.7) brightness(.95); }
+
+  footer { padding: 50px 0 34px; border-top: 1px solid var(--line); color: var(--muted); font-size: 14px; }
+  .foot { display: flex; justify-content: space-between; gap: 24px; flex-wrap: wrap; align-items: center; }
+  .foot nav { display: flex; gap: 24px; flex-wrap: wrap; }
+  .foot a { text-decoration: none; }
+  .foot a:hover { color: var(--ember-2); }
+
+  .fab { position: fixed; right: 16px; bottom: 16px; z-index: 60; display: none; padding: 14px 20px; border-radius: 999px; background: linear-gradient(135deg, var(--ember), var(--red)); color: #fff; font-weight: 700; text-decoration: none; box-shadow: 0 14px 30px -10px rgba(255,106,26,.9); align-items: center; gap: 8px; }
+  .fab svg { width: 20px; height: 20px; }
+
+  .reveal { opacity: 0; transform: translateY(30px); transition: opacity .9s ease, transform .9s ease; }
+  .reveal.in { opacity: 1; transform: none; }
+
+  @media (max-width: 1000px) {
+    .about, .music, .reviews, .contact { grid-template-columns: 1fr; }
+    .dishes { grid-template-columns: 1fr 1fr; }
+    .facts { grid-template-columns: 1fr 1fr; }
+    .strip { grid-template-columns: repeat(3, 1fr); }
+    .nav-links { position: fixed; inset: 78px 0 auto; flex-direction: column; gap: 0; background: var(--coal); border-bottom: 1px solid var(--line); padding: 8px 16px 20px; transform: translateY(-130%); transition: transform .35s; z-index: -1; }
+    .nav-links.open { transform: none; }
+    .nav-links a { padding: 14px 4px; font-size: 18px; border-bottom: 1px solid var(--line); }
+    .burger { display: block; }
+    .nav .btn { display: none; }
+  }
+  @media (max-width: 640px) {
+    body { font-size: 16px; }
+    section { padding: 80px 0; }
+    .hero { padding: 120px 0 60px; }
+    .hero .lead { font-size: 17px; }
+    .hero-cta .btn { flex: 1 1 100%; }
+    .fact { padding: 18px; }
+    .fact b { font-size: 26px; }
+    .dishes { grid-template-columns: 1fr; }
+    .music-card { min-height: 380px; padding: 28px; }
+    .score { padding: 34px 28px; }
+    .score .num { font-size: 92px; }
+    .contact-info { padding: 34px 26px; }
+    .strip { grid-template-columns: repeat(2, 1fr); }
+    .fab { display: inline-flex; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation: none !important; transition: none !important; }
+    .reveal { opacity: 1; transform: none; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <a class="logo" href="#top" aria-label="Шашлична №1 — на головну">
+      <span class="logo-mark">№1</span>
+      <span class="logo-text">Шашлична<small>Київ · на живому вогні</small></span>
+    </a>
+    <nav class="nav-links" id="navLinks">
+      <a href="#about">Про нас</a>
+      <a href="#menu">Меню</a>
+      <a href="#music">Жива музика</a>
+      <a href="#reviews">Відгуки</a>
+      <a href="#contact">Контакти</a>
+    </nav>
+    <a class="btn btn-fire" href="#contact">Забронювати / замовити</a>
+    <button class="burger" id="burger" aria-label="Меню" aria-expanded="false"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero">
+    <div class="hero-bg"><img src="img/coals.jpg" alt="Шашлик на розпеченому вугіллі"></div>
+    <div class="embers" id="embers" aria-hidden="true"></div>
+    <div class="wrap">
+      <span class="eyebrow">Київ · вул. Срібнокільська, 20Г</span>
+      <h1>Шашлична №1<span>Живий вогонь</span></h1>
+      <p class="lead">Соковитий шашлик з мангалу, ароматні супи та щедрі страви для великої компанії. А по п’ятницях і суботах — жива музика.</p>
+      <div class="hero-cta">
+        <a class="btn btn-fire" href="#gmaps" data-maps>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 8h14l-1.4 11.2a2 2 0 0 1-2 1.8H8.4a2 2 0 0 1-2-1.8L5 8Z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg>
+          Замовити онлайн
+        </a>
+        <a class="btn btn-line" href="#gmaps" data-route>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s-7-6.2-7-12a7 7 0 0 1 14 0c0 5.8-7 12-7 12Z"/><circle cx="12" cy="9" r="2.5"/></svg>
+          Прокласти маршрут
+        </a>
+      </div>
+      <div class="facts reveal">
+        <div class="fact"><b>4.4 <em>★</em></b><span>900 відгуків у Google</span></div>
+        <div class="fact"><b>600–1600 ₴</b><span>середній чек на гостя</span></div>
+        <div class="fact"><b>Пт · Сб</b><span>жива музика</span></div>
+        <div class="fact"><b>Онлайн</b><span>замовлення з собою</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="about">
+    <div class="wrap about">
+      <div class="about-img reveal">
+        <img src="img/interior.jpg" alt="Інтер’єр Шашличної №1">
+        <div class="stamp"><i></i> Мангал розпалений</div>
+      </div>
+      <div class="reveal">
+        <span class="eyebrow">Про нас</span>
+        <h2>Місце, де пахне <span>димом</span> і святом</h2>
+        <p>Шашлична №1 — затишний дерев’яний зал із теплим світлом, довгі столи для великих компаній і мангал, на якому м’ясо готується на справжньому вугіллі.</p>
+        <p>Сюди приходять поїсти від душі: після роботи, на день народження або просто в суботу ввечері — під музику.</p>
+        <ul class="points">
+          <li><span class="ico">🔥</span><div><b>Шашлик на вугіллі</b><span>Гості особливо хвалять соковитий шашлик зі свинячої ошийки</span></div></li>
+          <li><span class="ico">🍲</span><div><b>Ароматні супи</b><span>Харчо та шурпа — насичені й ситні, як мають бути</span></div></li>
+          <li><span class="ico">🎶</span><div><b>Жива музика</b><span>Щоп’ятниці та щосуботи — атмосфера свята</span></div></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="menu">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <div><span class="eyebrow">Меню</span><h2>Хіти з <span>мангалу</span></h2></div>
+        <p>Кілька страв, заради яких до нас повертаються. Повне меню — у закладі та в Google Maps.</p>
+      </div>
+      <div class="dishes">
+        <article class="dish reveal"><figure><img src="img/coals.jpg" alt="Шашлик зі свинячої ошийки"></figure><div><span class="chip">Хіт гостей</span><h3>Шашлик зі свинини</h3><p>Ошийка на вугіллі — соковита всередині, з димною скоринкою зовні.</p></div></article>
+        <article class="dish reveal"><figure><img src="img/chicken.jpg" alt="Курча на лаваші з цибулею"></figure><div><h3>Курча на мангалі</h3><p>Подаємо на лаваші з маринованою цибулею та свіжою зеленню.</p></div></article>
+        <article class="dish reveal"><figure><img src="img/kebab.jpg" alt="Кебаб у лаваші з соусом"></figure><div><h3>Кебаб у лаваші</h3><p>Гаряче м’ясо з мангалу, загорнуте в лаваш, з соусом і цибулею.</p></div></article>
+        <article class="dish reveal"><figure><img src="img/skewers.jpg" alt="Люля-кебаб"></figure><div><h3>Страви на шампурах</h3><p>М’ясо на шампурах з цибулею — для тих, хто любить класику.</p></div></article>
+        <article class="dish reveal"><figure><img src="img/rolls.jpg" alt="Рулетики з баклажанів"></figure><div><h3>Закуски</h3><p>Рулетики з баклажанів та інші закуски до великого столу.</p></div></article>
+        <article class="dish reveal"><figure><img src="img/lavash.jpg" alt="Страви в лаваші"></figure><div><span class="chip">З собою</span><h3>На виніс</h3><p>Замовляйте онлайн і забирайте гарячим — додому чи на природу.</p></div></article>
+      </div>
+      <div class="menu-cta reveal">
+        <p>Хочете смачно поїсти вдома? Оформіть <b>онлайн-замовлення</b> — і шашлик буде готовий до вашого приїзду.</p>
+        <a class="btn btn-fire" href="#gmaps" data-maps>Замовити онлайн →</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="music">
+    <div class="wrap music">
+      <div class="music-card reveal">
+        <img src="img/interior.jpg" alt="Зал з живою музикою">
+        <div>
+          <span class="eyebrow">Вечори</span>
+          <h2>Жива <span>музика</span></h2>
+          <div class="days"><span>П’ятниця</span><span>Субота</span></div>
+          <div class="eq" aria-hidden="true"><i style="animation-delay:0s"></i><i style="animation-delay:.2s"></i><i style="animation-delay:.45s"></i><i style="animation-delay:.1s"></i><i style="animation-delay:.6s"></i><i style="animation-delay:.3s"></i><i style="animation-delay:.75s"></i><i style="animation-delay:.15s"></i></div>
+        </div>
+      </div>
+      <div class="side">
+        <div class="tile reveal"><img src="img/exterior.jpg" alt="Вхід до Шашличної №1"><span class="label">Затишний дерев’яний будинок</span></div>
+        <div class="tile reveal"><img src="img/bar.jpg" alt="Барна стійка"><span class="label">Напої до столу</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section style="padding-top:0">
+    <div class="wrap">
+      <div class="strip reveal">
+        <figure><img src="img/coals.jpg" alt="Шашлик"></figure>
+        <figure><img src="img/chicken.jpg" alt="Курча"></figure>
+        <figure><img src="img/clock.jpg" alt="Годинник у залі"></figure>
+        <figure><img src="img/rolls.jpg" alt="Закуски"></figure>
+        <figure><img src="img/kebab.jpg" alt="Кебаб"></figure>
+        <figure><img src="img/menu.jpg" alt="Меню"></figure>
+      </div>
+    </div>
+  </section>
+
+  <section id="reviews" style="padding-top:20px">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <div><span class="eyebrow">Відгуки</span><h2>Що кажуть <span>гості</span></h2></div>
+      </div>
+      <div class="reviews">
+        <div class="score reveal">
+          <span class="num">4.4</span>
+          <span class="stars">★★★★★</span>
+          <p>900 відгуків у Google</p>
+        </div>
+        <div class="tips">
+          <div class="tip reveal"><span class="q">“</span><div><p>Відвідувачі хвалять соковитий шашлик зі свинячої ошийки.</p><small>Корисні поради Google на основі відгуків</small></div></div>
+          <div class="tip reveal"><span class="q">“</span><div><p>Гості відзначають живу музику по п’ятницях і суботах.</p><small>Корисні поради Google на основі відгуків</small></div></div>
+          <div class="tip reveal"><span class="q">“</span><div><p>Харчо та шурпа — ароматні, насичені, ситні.</p><small>З відгуку гостя в Google</small></div></div>
+          <a class="btn btn-line reveal" href="#gmaps" data-maps style="justify-self:start">Читати всі відгуки в Google →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" style="padding-top:0">
+    <div class="wrap">
+      <div class="contact reveal">
+        <div class="contact-info">
+          <div><span class="eyebrow">Контакти</span><h2 style="margin-top:14px">Чекаємо <span style="color:var(--ember)">на вогник</span></h2></div>
+          <div class="row"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s-7-6.2-7-12a7 7 0 0 1 14 0c0 5.8-7 12-7 12Z"/><circle cx="12" cy="9" r="2.5"/></svg></div><div><small>Адреса</small><span>вул. Срібнокільська, 20Г, Київ, 02000</span></div></div>
+          <div class="row"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div><div><small>Графік роботи</small><span>Актуальні години — у Google Maps</span></div></div>
+          <div class="row"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg></div><div><small>Жива музика</small><span>П’ятниця та субота</span></div></div>
+          <div class="hero-cta">
+            <a class="btn btn-fire" href="#gmaps" data-route>Прокласти маршрут</a>
+            <a class="btn btn-line" href="#gmaps" data-maps>Замовити онлайн</a>
+          </div>
+        </div>
+        <div class="map"><iframe title="Шашлична №1 на карті" referrerpolicy="no-referrer-when-downgrade" src="https://maps.google.com/maps?q=%D0%A8%D0%B0%D1%88%D0%BB%D0%B8%D1%87%D0%BD%D0%B0%20%E2%84%961%20%D0%A1%D1%80%D1%96%D0%B1%D0%BD%D0%BE%D0%BA%D1%96%D0%BB%D1%8C%D1%81%D1%8C%D0%BA%D0%B0%2020%D0%93%20%D0%9A%D0%B8%D1%97%D0%B2&z=16&output=embed"></iframe></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap foot">
+    <a class="logo" href="#top"><span class="logo-mark">№1</span><span class="logo-text">Шашлична<small>вул. Срібнокільська, 20Г</small></span></a>
+    <nav><a href="#about">Про нас</a><a href="#menu">Меню</a><a href="#music">Жива музика</a><a href="#reviews">Відгуки</a><a href="#contact">Контакти</a></nav>
+    <span>© <span id="year"></span> Шашлична №1, Київ</span>
+  </div>
+</footer>
+
+<a class="fab" href="#gmaps" data-route>
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s-7-6.2-7-12a7 7 0 0 1 14 0c0 5.8-7 12-7 12Z"/><circle cx="12" cy="9" r="2.5"/></svg>
+  Маршрут
+</a>
+
+<script>
+  // Google Maps links (place page for ordering/reviews, directions for the route)
+  const PLACE = 'Шашлична №1, вулиця Срібнокільська, 20Г, Київ';
+  const mapsUrl = 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(PLACE);
+  const routeUrl = 'https://www.google.com/maps/dir/?api=1&destination=' + encodeURIComponent(PLACE);
+  document.querySelectorAll('[data-maps]').forEach(a => { a.href = mapsUrl; a.target = '_blank'; a.rel = 'noopener'; });
+  document.querySelectorAll('[data-route]').forEach(a => { a.href = routeUrl; a.target = '_blank'; a.rel = 'noopener'; });
+
+  // rising embers in the hero
+  const em = document.getElementById('embers');
+  if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    for (let i = 0; i < 34; i++) {
+      const s = document.createElement('i');
+      s.style.left = Math.random() * 100 + '%';
+      s.style.setProperty('--dx', (Math.random() * 160 - 80) + 'px');
+      s.style.animationDuration = (5 + Math.random() * 7) + 's';
+      s.style.animationDelay = (-Math.random() * 10) + 's';
+      const sz = 2 + Math.random() * 4; s.style.width = s.style.height = sz + 'px';
+      em.appendChild(s);
+    }
+  }
+
+  const header = document.querySelector('header');
+  const onScroll = () => header.classList.toggle('scrolled', scrollY > 40);
+  addEventListener('scroll', onScroll, { passive: true }); onScroll();
+  const burger = document.getElementById('burger'), links = document.getElementById('navLinks');
+  burger.addEventListener('click', () => { const o = links.classList.toggle('open'); burger.setAttribute('aria-expanded', o); });
+  links.querySelectorAll('a').forEach(a => a.addEventListener('click', () => links.classList.remove('open')));
+
+  const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { threshold: .12 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+  document.getElementById('year').textContent = new Date().getFullYear();
+</script>
+</body>
+</html>
