@@ -32,7 +32,7 @@
   .phrase.bored { padding: 18px 34px 26px; border-radius: 48px; background: rgba(40, 48, 66, .6); }
   .phrase.bored .w { color: #d5dcea; }
   .phrase.bored .w.on { color: #ffd84a; }
-  #subs.words { top: 1080px; }
+  #subs.words { top: 1420px; }
   .word { display: inline-block; font-family: Montserrat; font-weight: 900; font-size: 118px; letter-spacing: 1px; color: #fff;
           -webkit-text-stroke: 22px #0d0d0d; paint-order: stroke fill; text-shadow: 0 10px 0 rgba(0,0,0,.35); transform-origin: 50% 60%; }
   .phrase.guard .w.on { color: #8fc4ff; }
@@ -45,14 +45,13 @@
 <body>
 <div id="stage">
   <svg id="svg" width="1080" height="1920" viewBox="0 0 1080 1920" xmlns="http://www.w3.org/2000/svg"></svg>
-  
+  <div id="subs" class="words"></div>
 </div>
 <audio id="vo" src="audio.wav" preload="auto"></audio>
 <script src="../../lib/anim.js"></script>
 <script src="../../lib/characters.js"></script>
 <script src="../../lib/subs.js"></script>
 <script src="../../lib/lipsync.js"></script>
-<script src="../../lib/airplane.js"></script>
 <script src="timing.js"></script>
 <script src="scene.js"></script>
 <script>

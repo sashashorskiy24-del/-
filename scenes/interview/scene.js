@@ -27,12 +27,12 @@
     okay: at(74), hired: at(75), bank: at(77),
     theBank: at(81), pizza: at(83),
     getOut: at(90),
-    leave: 34.55,
+    leave: 34.45,
   };
 
   // ---------------- looks (same Alex as the pizza / flight shorts) ----------------
-  const ALEX_LOOK = { smooth: true, armW: 40, legW: 52, shX: 1.3, hipX: 1.35, shoeSc: 1.25, headSc: 1.12, eyeSc: 1.18, handSc: 1.35 };
-  const BOSS_LOOK = { kind: 'man', outfit: 'man', smooth: true, armW: 40, legW: 52, shX: 1.3, hipX: 1.35, shoeSc: 1.25, headSc: 1.12, eyeSc: 1.1, handSc: 1.35 };
+  const ALEX_LOOK = { smooth: true, roundHands: true, armW: 40, legW: 52, shX: 1.3, hipX: 1.35, shoeSc: 1.25, headSc: 1.12, eyeSc: 1.18, handSc: 1.05 };
+  const BOSS_LOOK = { kind: 'man', outfit: 'man', smooth: true, roundHands: true, armW: 40, legW: 52, shX: 1.3, hipX: 1.35, shoeSc: 1.25, headSc: 1.12, eyeSc: 1.1, handSc: 1.05 };
   const SC = 1.0;
   const ALEX_SEAT = { x: 300, hip: 1330 };
   const BOSS_SEAT = { x: 800, hip: 1290 };
@@ -44,42 +44,61 @@
     if (SET) return SET;
     const o = [];
     o.push(`<defs>
-      <linearGradient id="gOW" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#d8d2c7"/><stop offset="1" stop-color="#c9c1b3"/></linearGradient>
-      <linearGradient id="gOF" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#6b5442"/><stop offset="1" stop-color="#4c3a2c"/></linearGradient>
-      <linearGradient id="gCity" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#9cc3e4"/><stop offset="1" stop-color="#e3eef6"/></linearGradient>
-      <linearGradient id="gDeskW" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#7a4f33"/><stop offset="1" stop-color="#5a3922"/></linearGradient>
+      <linearGradient id="gOW" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#cfc8bd"/><stop offset=".65" stop-color="#c3bbaf"/><stop offset="1" stop-color="#b3ab9e"/></linearGradient>
+      <linearGradient id="gOF" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8a6a4e"/><stop offset="1" stop-color="#5e4632"/></linearGradient>
+      <linearGradient id="gCity" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#a9c8e2"/><stop offset="1" stop-color="#e7eef3"/></linearGradient>
+      <linearGradient id="gDeskW" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#6e4a31"/><stop offset="1" stop-color="#4f3322"/></linearGradient>
       <linearGradient id="gLeather" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#2c2622"/><stop offset=".5" stop-color="#3d342e"/><stop offset="1" stop-color="#241f1b"/></linearGradient>
-      <radialGradient id="gLampO"><stop offset="0" stop-color="#fff1cf" stop-opacity=".6"/><stop offset="1" stop-color="#fff1cf" stop-opacity="0"/></radialGradient>
+      <linearGradient id="gBeamO" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff6dc" stop-opacity=".35"/><stop offset="1" stop-color="#fff6dc" stop-opacity="0"/></linearGradient>
+      <radialGradient id="gLampO"><stop offset="0" stop-color="#ffe7b8" stop-opacity=".55"/><stop offset="1" stop-color="#ffe7b8" stop-opacity="0"/></radialGradient>
+      <linearGradient id="gAOw" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#000" stop-opacity=".28"/><stop offset="1" stop-color="#000" stop-opacity="0"/></linearGradient>
+      <pattern id="pPlaster" width="18" height="18" patternUnits="userSpaceOnUse"><circle cx="4" cy="6" r="1.2" fill="#000" opacity=".05"/><circle cx="13" cy="14" r="1" fill="#fff" opacity=".06"/></pattern>
       <filter id="fSoftO"><feGaussianBlur stdDeviation="12"/></filter>
     </defs>`);
-    o.push(`<rect x="-700" y="-700" width="2500" height="${FLOOR + 700}" fill="url(#gOW)"/>`);
-    // wall panelling
-    o.push(`<rect x="-700" y="1150" width="2500" height="${FLOOR - 1150}" fill="#b9ae9d"/>`);
-    for (let x = -680; x < 1800; x += 220) o.push(`<rect x="${x}" y="1180" width="190" height="${FLOOR - 1220}" rx="6" fill="none" stroke="#a69a87" stroke-width="6"/>`);
-    o.push(`<rect x="-700" y="1138" width="2500" height="16" fill="#e8e2d8"/>`);
-    // big window with city view (right of center, behind the boss)
-    o.push(`<rect x="560" y="360" width="520" height="640" rx="8" fill="#3b3a38"/><rect x="574" y="374" width="492" height="612" fill="url(#gCity)"/>`);
-    const bld = [[580, 700, 70], [652, 620, 60], [714, 760, 80], [796, 560, 70], [868, 680, 64], [934, 600, 78], [1014, 740, 60]];
+    // walls: plaster texture, soft shadow under the ceiling
+    o.push(`<rect x="-700" y="-700" width="2500" height="${FLOOR + 700}" fill="url(#gOW)"/><rect x="-700" y="-700" width="2500" height="${FLOOR + 700}" fill="url(#pPlaster)"/>`);
+    o.push(`<rect x="-700" y="-700" width="2500" height="900" fill="url(#gAOw)"/>`);
+    // window with blinds + city view
+    o.push(`<rect x="548" y="348" width="544" height="664" rx="6" fill="#4a4743"/><rect x="566" y="366" width="508" height="628" fill="url(#gCity)"/>`);
+    const bld = [[566, 720, 74], [642, 640, 62], [706, 770, 84], [792, 590, 72], [866, 700, 66], [934, 620, 80], [1016, 760, 58]];
     for (const [x, y, w] of bld) {
-      o.push(`<rect x="${x}" y="${y}" width="${w}" height="${990 - y}" fill="#7f93a8"/>`);
-      for (let yy = y + 16; yy < 970; yy += 34) for (let xx = x + 10; xx < x + w - 12; xx += 20) o.push(`<rect x="${xx}" y="${yy}" width="9" height="14" fill="#c7d6e3"/>`);
+      o.push(`<rect x="${x}" y="${y}" width="${w}" height="${994 - y}" fill="#8396aa"/>`);
+      for (let yy = y + 16; yy < 975; yy += 34) for (let xx = x + 10; xx < x + w - 12; xx += 20) o.push(`<rect x="${xx}" y="${yy}" width="9" height="14" fill="#cfdbe6"/>`);
     }
-    o.push(`<path d="M820 374V986M574 680H1066" stroke="#3b3a38" stroke-width="10"/>`);
-    o.push(`<rect x="548" y="990" width="544" height="20" rx="4" fill="#e8e2d8"/>`);
-    // bank sign (the late reveal) — top left above the door
-    o.push(`<g transform="translate(270 420)"><rect x="-200" y="-70" width="400" height="140" rx="16" fill="#1f3b5c" stroke="#c9a33a" stroke-width="8"/>` +
-      `<path d="M-150 -18L-118 -40L-86 -18Z" fill="#c9a33a"/><rect x="-146" y="-16" width="56" height="8" fill="#c9a33a"/><path d="M-140 -6v30M-128 -6v30M-112 -6v30M-100 -6v30" stroke="#c9a33a" stroke-width="7"/><rect x="-150" y="26" width="64" height="9" fill="#c9a33a"/>` +
-      `<text x="40" y="18" text-anchor="middle" font-family="Oswald, Fredoka" font-weight="700" font-size="58" fill="#f4ecd8" letter-spacing="4">CITY BANK</text></g>`);
-    // framed certificate + plant + filing cabinet
-    o.push(`<rect x="90" y="640" width="200" height="150" fill="#fff" stroke="#8a6a3c" stroke-width="10"/><path d="M120 680h140M120 710h110M120 740h130" stroke="#c9c1b3" stroke-width="7"/><circle cx="250" cy="760" r="14" fill="#c0392b"/>`);
-    o.push(`<rect x="1120" y="980" width="200" height="300" rx="8" fill="#9aa1a9" stroke="#5b6168" stroke-width="5"/><path d="M1130 1080h180M1130 1180h180" stroke="#5b6168" stroke-width="5"/><rect x="1200" y="1020" width="40" height="10" rx="3" fill="#5b6168"/><rect x="1200" y="1120" width="40" height="10" rx="3" fill="#5b6168"/>`);
-    // door (left wall) — Alex leaves through it
-    o.push(`<rect x="-260" y="760" width="250" height="${FLOOR - 760}" fill="#7a5a3e" stroke="#4a3522" stroke-width="8"/><circle cx="-40" cy="1220" r="12" fill="#e2b84a"/>`);
-    // floor + rug
-    o.push(`<rect x="-700" y="${FLOOR}" width="2500" height="900" fill="url(#gOF)"/><rect x="-700" y="${FLOOR - 8}" width="2500" height="12" fill="#3e2e22"/>`);
-    o.push(`<ellipse cx="560" cy="1780" rx="560" ry="80" fill="#7c2f2a" opacity=".85"/><ellipse cx="560" cy="1780" rx="500" ry="62" fill="none" stroke="#b9853f" stroke-width="6"/>`);
-    // ceiling lamp glow
-    o.push(`<circle cx="560" cy="300" r="420" fill="url(#gLampO)"/>`);
+    for (let y = 366; y < 560; y += 16) o.push(`<rect x="566" y="${y}" width="508" height="9" fill="#ece6da" opacity=".95"/>`);   // half-raised blinds
+    o.push(`<rect x="566" y="556" width="508" height="12" fill="#d9d2c4"/>`);
+    o.push(`<path d="M820 366V994" stroke="#4a4743" stroke-width="10"/><rect x="536" y="1004" width="568" height="22" rx="4" fill="#e8e2d8"/>`);
+    o.push(`<path d="M566 1026L1074 1026L1220 1640L420 1640Z" fill="url(#gBeamO)" opacity=".7"/>`);
+    // bank logo on the wall (for the reveal), discreet and realistic
+    o.push(`<g transform="translate(270 430)"><rect x="-190" y="-62" width="380" height="124" rx="10" fill="#22364f"/>` +
+      `<path d="M-140 -14L-112 -34L-84 -14Z" fill="#d6b25a"/><rect x="-136" y="-12" width="48" height="7" fill="#d6b25a"/><path d="M-130 -2v26M-120 -2v26M-104 -2v26M-94 -2v26" stroke="#d6b25a" stroke-width="6"/><rect x="-140" y="24" width="56" height="8" fill="#d6b25a"/>` +
+      `<text x="40" y="16" text-anchor="middle" font-family="Oswald, Montserrat, sans-serif" font-weight="700" font-size="50" fill="#f2ead8" letter-spacing="3">CITY BANK</text></g>`);
+    // bookshelf (left) with binders and plant
+    o.push(`<rect x="60" y="600" width="300" height="520" fill="#5a3f2b"/><rect x="72" y="612" width="276" height="496" fill="#3d2a1d"/>`);
+    const cols = ['#2f4a6d', '#8a3a2f', '#c9a35a', '#4f6b4a', '#e6dfd2', '#6c5a8a'];
+    for (let r = 0; r < 3; r++) {
+      const y = 612 + r * 165;
+      o.push(`<rect x="72" y="${y + 153}" width="276" height="12" fill="#6b4c35"/>`);
+      let x = 84;
+      for (let i = 0; x < 320; i++) { const w = 22 + (i * 7 + r * 5) % 4 * 6, h = 108 + (i * 11 + r) % 4 * 10; if ((i + r) % 5 === 3) { x += 30; continue; } o.push(`<rect x="${x}" y="${y + 153 - h}" width="${w}" height="${h}" rx="2" fill="${cols[(i + r) % cols.length]}"/><rect x="${x + 4}" y="${y + 163 - h}" width="${w - 8}" height="6" fill="#fff" opacity=".25"/>`); x += w + 4; }
+    }
+    o.push(`<path d="M270 777l10-40h50l10 40Z" fill="#cfc4b2"/><path d="M305 737c-18-30 2-46 12-36-6 12-8 22-12 36Zm0 0c12-34 34-40 40-28-14 6-26 16-40 28Z" fill="#5d8a5a"/>`);
+    // framed photo
+    o.push(`<rect x="420" y="640" width="100" height="130" fill="#2b241f"/><rect x="430" y="650" width="80" height="110" fill="#b7c7cf"/><path d="M432 740l24-34 20 22 14-14 20 26Z" fill="#6d8a6a"/>`);
+    // big plant in the corner (right)
+    o.push(`<path d="M1150 1640l-20-170h150l-20 170Z" fill="#cdbfa9" stroke="#8a7a62" stroke-width="5"/><g fill="#41633f"><path d="M1205 1470c-80-70-120-210-80-260 40 50 70 170 80 260Z"/><path d="M1205 1470c0-110 40-220 110-260 8 80-40 200-110 260Z"/><path d="M1205 1470c-30-110-24-230 8-300 28 90 22 210-8 300Z" fill="#567f52"/></g>`);
+    // door (left) — Alex leaves through it
+    o.push(`<rect x="-280" y="760" width="250" height="${FLOOR - 760}" fill="#7b5a3d" stroke="#4a3522" stroke-width="8"/><rect x="-256" y="790" width="200" height="350" rx="4" fill="none" stroke="#5e432c" stroke-width="6"/><circle cx="-60" cy="1220" r="12" fill="#d8b04a"/>`);
+    // skirting + wooden floor + rug
+    o.push(`<rect x="-700" y="${FLOOR - 26}" width="2500" height="30" fill="#e3ddd2"/>`);
+    o.push(`<rect x="-700" y="${FLOOR}" width="2500" height="900" fill="url(#gOF)"/>`);
+    let y = FLOOR, gap = 26, row = 0;
+    while (y < 2600) { o.push(`<rect x="-700" y="${y}" width="2500" height="3" fill="#3f2b1d" opacity=".5"/>`); for (let x = -700 + (row % 3) * 150; x < 1800; x += 450) o.push(`<rect x="${x}" y="${y}" width="3" height="${gap}" fill="#3f2b1d" opacity=".4"/>`); y += gap; gap *= 1.14; row++; }
+    o.push(`<rect x="-700" y="${FLOOR + 4}" width="2500" height="40" fill="url(#gAOw)"/>`);
+    o.push(`<ellipse cx="560" cy="1790" rx="580" ry="84" fill="#000" opacity=".22" filter="url(#fSoftO)"/><ellipse cx="560" cy="1780" rx="560" ry="78" fill="#5b6b78"/><ellipse cx="560" cy="1780" rx="500" ry="60" fill="none" stroke="#7e8e9a" stroke-width="6"/>`);
+    // warm ceiling light + gentle vignette corners
+    o.push(`<circle cx="560" cy="280" r="460" fill="url(#gLampO)"/>`);
+    o.push(`<rect x="-700" y="-700" width="500" height="3000" fill="#000" opacity=".1" filter="url(#fSoftO)"/><rect x="1300" y="-700" width="500" height="3000" fill="#000" opacity=".1" filter="url(#fSoftO)"/>`);
     SET = o.join('');
     return SET;
   }
@@ -112,7 +131,9 @@
       // nameplate, papers, mug
       `<g transform="translate(640 ${DESK_TOP - 40})"><path d="M-80 20L-70 -20H70L80 20Z" fill="#c9a33a" stroke="#5a4510" stroke-width="4"/><text x="0" y="10" text-anchor="middle" font-family="Fredoka" font-weight="700" font-size="22" fill="#3a2a05">MANAGER</text></g>` +
       `<rect x="950" y="${DESK_TOP - 34}" width="120" height="14" rx="3" fill="#fffdf6" stroke="#b9a487" stroke-width="3" transform="rotate(-4 1010 ${DESK_TOP - 27})"/>` +
-      `<path d="M1080 ${DESK_TOP - 18}h46l-6 -60h-34Z" fill="#fff" stroke="#888" stroke-width="4"/>`;
+      `<path d="M1080 ${DESK_TOP - 18}h46l-6 -60h-34Z" fill="#fff" stroke="#888" stroke-width="4"/>` +
+      `<g transform="translate(560 ${DESK_TOP - 20})"><path d="M-10 0L10 -110L130 -110L110 0Z" fill="#c9ced6" stroke="#5b6168" stroke-width="5" stroke-linejoin="round"/><path d="M4 -12L20 -98L120 -98L104 -12Z" fill="#2b3440"/><rect x="-20" y="-6" width="150" height="10" rx="4" fill="#aeb4bb"/></g>` +
+      `<ellipse cx="800" cy="${DESK_TOP + 20}" rx="330" ry="16" fill="#000" opacity=".25" filter="url(#fSoftO)"/>`;
   }
 
   // ---------------- characters ----------------
@@ -176,9 +197,9 @@
     // "Get out." — stands up, grabs HIS chair and walks out with it
     if (t >= K.getOut) {
       const up = prog(t, K.leave, K.leave + 0.45, 'inOut');
-      const grab = prog(t, K.leave + 0.4, K.leave + 0.8, 'inOut');
-      const go = prog(t, K.leave + 0.8, T.duration, 'linear');
-      const ph = (t - K.leave - 0.8) * Math.PI * 2 * 1.7, amp = go > 0 ? Math.min(1, go * 6) : 0;
+      const grab = prog(t, K.leave + 0.3, K.leave + 0.6, 'inOut');
+      const go = prog(t, K.leave + 0.6, T.duration, 'linear');
+      const ph = (t - K.leave - 0.6) * Math.PI * 2 * 1.7, amp = go > 0 ? Math.min(1, go * 6) : 0;
       p.x = ALEX_SEAT.x - go * 620;
       p.y = lerp(ALEX_SEAT.hip, standHip, up) - Math.abs(Math.sin(ph)) * 8 * amp;
       p.legK = A.mix([0.32, 1], [1, 1], up);
@@ -241,9 +262,9 @@
       wl = [lerp(wl[0], p.x - 260, k), lerp(wl[1], p.y - 190, k)]; hL = 'glove'; rL = -95;
       f.browTilt = -0.9; f.red = 0.12; f.eye = 1.1;
       // … then a facepalm as Alex walks off with the chair
-      const fp = prog(t, 35.6, 36.1, 'inOut');
+      const fp = prog(t, 35.3, 35.75, 'inOut');
       if (fp > 0) { const head = CH.headPos(p); wl = [lerp(wl[0], head[0] - 5, fp), lerp(wl[1], head[1] - 15, fp)]; rL = 180; if (fp > 0.7) f.sleep = true; p.headTilt += 8 * fp; }
-      if (t > 35.0 && fp < 0.3) f.look = [-1, 0.1];
+      if (t > 34.9 && fp < 0.3) f.look = [-1, 0.1];
     }
     p.armL = CH.armIK(p, -1, wl[0], wl[1], -1); p.armR = CH.armIK(p, 1, wr[0], wr[1], 1);
     p.handL = hL; p.handR = hR; p.handRotL = rL; p.handRotR = rR; p.thumbL = thL; p.thumbR = thR;
@@ -282,6 +303,10 @@
     if (kind === 'sign') return { cx: 290, cy: 470, z: 1.9 * push };
   }
 
+  // big one-word English captions (short-video style)
+  const subs = SUBS.makeWordSubs(T);
+  const subsEl = document.getElementById('subs');
+
   const svg = document.getElementById('svg');
   window.renderFrame = function (t) {
     const a = alexPose(t), b = bossPose(t);
@@ -308,5 +333,6 @@
     const fade = prog(t, T.duration - 0.5, T.duration - 0.05, 'in');
     if (fade > 0) o.push(`<rect width="1080" height="1920" fill="#000" opacity="${fade.toFixed(3)}"/>`);
     svg.innerHTML = o.join('');
+    subsEl.innerHTML = subs(t);
   };
 })();
