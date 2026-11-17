@@ -21,6 +21,7 @@
 - `scenes/pizza_01/` — «Alex Orders a Pizza», сцена 1 (озвучка `assets/audio/pizza_voiceover_full.mp3`, 0–10.5 с + 1.2 с)
 - `lib/pizza.js` — общая комната Алекса, пиццерия, вид Алекса и оператора, базовые позы для сцен «Pizza»
 - `scenes/pizza_02/`, `scenes/pizza_03/` — «Alex Orders a Pizza», сцены 2 и 3 (10.5–19.3 с + 0.9 с; 19.3–41.48 с + 1.6 с)
+- `scenes/interview/` — «Alex at the Job Interview», один ролик ~38 с (озвучка `assets/audio/interview_voiceover_full.mp3` + 3.2 с финала)
 - `scenes/hello/` — 5-секундный ролик: Алекс машет рукой
 - `scenes/scene_01/` — сцена 1: `scene.js` (комната, тайминг, камера, эффекты, субтитры), `index.html`, `audio.wav`, `timing.json` / `timing.js`
 - `assets/` — исходная озвучка, референс персонажа, шрифты
