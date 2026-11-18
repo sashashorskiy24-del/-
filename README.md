@@ -23,6 +23,8 @@
 - `scenes/pizza_02/`, `scenes/pizza_03/` — «Alex Orders a Pizza», сцены 2 и 3 (10.5–19.3 с + 0.9 с; 19.3–41.48 с + 1.6 с)
 - `scenes/interview/` — «Alex at the Job Interview», один ролик ~38 с (озвучка `assets/audio/interview_voiceover_full.mp3` + 3.2 с финала)
 - `scenes/hello/` — 5-секундный ролик: Алекс машет рукой
+- `scenes/doctor/` — «Alex at the Doctor», один ролик ~28 с: сценарий `script.md`, голоса сгенерированы (Higgsfield, ElevenLabs: Алекс — Benji, врач — Nadine) → `assets/audio/doctor_vo_*.mp3`; реплики собираются по `dialogue.json`
+- `tools/assemble_dialogue.py <сцена>` — собирает дорожку из отдельных TTS-дублей двух персонажей и оценивает тайминги слов без ASR
 - `scenes/scene_01/` — сцена 1: `scene.js` (комната, тайминг, камера, эффекты, субтитры), `index.html`, `audio.wav`, `timing.json` / `timing.js`
 - `assets/` — исходная озвучка, референс персонажа, шрифты
 - `tools/build_timing.py <сцена> <начало> <конец>` — вырезает фрагмент озвучки, считает тайминги слов и огибающую громкости для синхронизации губ
@@ -55,6 +57,7 @@ python3 tools/build_timing.py pizza_02 10.5 19.3 assets/audio/pizza_voiceover_fu
 node tools/render.js pizza_02 --out output/scene_02_pizza.mp4
 python3 tools/build_timing.py pizza_03 19.3 41.48 assets/audio/pizza_voiceover_full.mp3 tools/pizza_voiceover_full_tokens.json 1.6
 node tools/render.js pizza_03 --out output/scene_03_pizza_final.mp4
+python3 tools/assemble_dialogue.py doctor && node tools/render.js doctor --out output/alex_doctor.mp4
 node tools/render.js scene_01 --stills 6.5,9.7,16.6  # отдельные кадры для проверки
 ```
 Чтобы посмотреть сцену в браузере, откройте `scenes/scene_01/index.html` и кликните по экрану: включится звук.

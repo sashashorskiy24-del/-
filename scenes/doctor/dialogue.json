@@ -1,0 +1,16 @@
+{
+ "fps": 30,
+ "tail": 2.8,
+ "lines": [
+  {"who": "doctor", "src": "assets/audio/doctor_vo_doctor.mp3", "a": 0.08, "b": 2.50, "gap": 0.40, "text": "Hello, Alex. What seems to be the problem?"},
+  {"who": "alex",   "src": "assets/audio/doctor_vo_alex.mp3",   "a": 0.00, "b": 2.66, "gap": 0.35, "text": "Every time I drink tea, my eye hurts."},
+  {"who": "doctor", "src": "assets/audio/doctor_vo_doctor.mp3", "a": 3.25, "b": 5.83, "gap": 0.45, "text": "Have you tried taking the spoon out of the cup?"},
+  {"who": "alex",   "src": "assets/audio/doctor_vo_alex.mp3",   "a": 3.52, "b": 5.17, "gap": 0.90, "text": "Doctor... you're a genius."},
+  {"who": "doctor", "src": "assets/audio/doctor_vo_doctor.mp3", "a": 6.34, "b": 7.20, "gap": 0.40, "text": "Anything else?"},
+  {"who": "alex",   "src": "assets/audio/doctor_vo_alex.mp3",   "a": 6.02, "b": 10.08, "gap": 0.35, "text": "Yes. When I press here, it hurts. And here. And here."},
+  {"who": "doctor", "src": "assets/audio/doctor_vo_doctor.mp3", "a": 8.40, "b": 10.97, "gap": 0.55, "text": "Alex... your finger is broken."},
+  {"who": "alex",   "src": "assets/audio/doctor_vo_alex.mp3",   "a": 11.07, "b": 13.01, "gap": 0.45, "text": "Oh. How much do I owe you?"},
+  {"who": "doctor", "src": "assets/audio/doctor_vo_doctor.mp3", "a": 11.54, "b": 12.67, "gap": 0.35, "text": "Two hundred dollars."},
+  {"who": "alex",   "src": "assets/audio/doctor_vo_alex.mp3",   "a": 13.76, "b": 14.92, "gap": 0.45, "text": "Can I pay with tea?"}
+ ]
+}
