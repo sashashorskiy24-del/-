@@ -1,3 +1,4 @@
 output/stills/
 node_modules/
 __pycache__/
+clips/*/out/
