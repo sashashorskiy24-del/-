@@ -23,6 +23,8 @@
 - `scenes/pizza_02/`, `scenes/pizza_03/` — «Alex Orders a Pizza», сцены 2 и 3 (10.5–19.3 с + 0.9 с; 19.3–41.48 с + 1.6 с)
 - `scenes/interview/` — «Alex at the Job Interview», один ролик ~38 с (озвучка `assets/audio/interview_voiceover_full.mp3` + 3.2 с финала)
 - `scenes/hello/` — 5-секундный ролик: Алекс машет рукой
+- `scenes/vlog/` — «Будни безработного школьника»: Алекс повторяет день из реального влога (~42.6 с; звук — голос из исходного видео, слова `tools/vlog_words.json`, субтитры как в оригинале — короткие белые строчные фразы)
+- `tools/build_timing_video.py` — тайминг и звук для сцены из голоса готового видео
 - `scenes/scene_01/` — сцена 1: `scene.js` (комната, тайминг, камера, эффекты, субтитры), `index.html`, `audio.wav`, `timing.json` / `timing.js`
 - `assets/` — исходная озвучка, референс персонажа, шрифты
 - `tools/build_timing.py <сцена> <начало> <конец>` — вырезает фрагмент озвучки, считает тайминги слов и огибающую громкости для синхронизации губ
@@ -55,6 +57,8 @@ python3 tools/build_timing.py pizza_02 10.5 19.3 assets/audio/pizza_voiceover_fu
 node tools/render.js pizza_02 --out output/scene_02_pizza.mp4
 python3 tools/build_timing.py pizza_03 19.3 41.48 assets/audio/pizza_voiceover_full.mp3 tools/pizza_voiceover_full_tokens.json 1.6
 node tools/render.js pizza_03 --out output/scene_03_pizza_final.mp4
+python3 tools/build_timing_video.py vlog <видео.mov> tools/vlog_words.json 0.4
+node tools/render.js vlog --out output/alex_vlog_weekday.mp4
 node tools/render.js scene_01 --stills 6.5,9.7,16.6  # отдельные кадры для проверки
 ```
 Чтобы посмотреть сцену в браузере, откройте `scenes/scene_01/index.html` и кликните по экрану: включится звук.
